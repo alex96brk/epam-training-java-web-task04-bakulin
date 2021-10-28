@@ -9,12 +9,14 @@ public class Book implements Serializable, Comparable<Book> {
     private String bookGenre;
 
     public Book(String bookName, String bookAuthor, String bookGenre) {
+        this.bookId = (long) (Math.random() * Long.MAX_VALUE);
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
         this.bookGenre = bookGenre;
     }
 
     public Book() {
+        this.bookId = (long) (Math.random() * Long.MAX_VALUE);
     }
 
     public Long getBookId() {
@@ -51,11 +53,11 @@ public class Book implements Serializable, Comparable<Book> {
 
     @Override
     public String toString() {
-        return "Book{" +
-                "bookId=" + bookId +
-                ", bookName='" + bookName + '\'' +
-                ", bookAuthor='" + bookAuthor + '\'' +
-                ", bookGenre='" + bookGenre + '\'' +
+        return "Book{ " +
+                "bookId = " + bookId +
+                ", bookName = '" + bookName + '\'' +
+                ", bookAuthor = '" + bookAuthor + '\'' +
+                ", bookGenre = '" + bookGenre + '\'' +
                 '}';
     }
 
