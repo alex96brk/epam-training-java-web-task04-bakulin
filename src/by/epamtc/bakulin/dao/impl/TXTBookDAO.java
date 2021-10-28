@@ -3,8 +3,6 @@ package by.epamtc.bakulin.dao.impl;
 import by.epamtc.bakulin.dao.BookDAO;
 import by.epamtc.bakulin.io.IOManager;
 import by.epamtc.bakulin.model.Book;
-import by.epamtc.bakulin.model.Role;
-import by.epamtc.bakulin.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
