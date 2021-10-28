@@ -21,6 +21,7 @@ public class User implements Serializable, Comparable<User> {
     }
 
     public User() {
+        this.userId = (long) (Math.random() * Long.MAX_VALUE);
     }
 
     public Long getUserId() {
