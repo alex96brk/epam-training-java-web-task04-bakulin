@@ -4,4 +4,3 @@ Book{ bookId = 3862007577601269760, bookName = 'Altered Carbon', bookAuthor = 'R
 Book{ bookId = 2244113191088056320, bookName = 'Quiet Done', bookAuthor = 'Michael Sholokhov', bookGenre = 'Historical Novel'}
 Book{ bookId = 1557212473293805568, bookName = 'Thinking in Java', bookAuthor = 'Bruce Eckel', bookGenre = 'Computer Science'}
 Book{ bookId = 1915430965012975616, bookName = 'Code Complete', bookAuthor = 'Steve McConnell', bookGenre = 'Computer Science'}
-Book{ bookId = 2213772433374791680, bookName = 'Code Complete', bookAuthor = 'Steve McConnell', bookGenre = 'Computer Science'}
