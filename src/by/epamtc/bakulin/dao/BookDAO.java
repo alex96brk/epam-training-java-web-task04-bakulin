@@ -8,13 +8,15 @@ public interface BookDAO {
     
     Book createBook(String bookName, String bookAuthor, String bookGenre);
 
+    Book findBookByBookId(Long bookId);
+
     Book findBookByBookAuthor(String bookAuthor);
 
     Book findBookByBookName(String bookName);
 
     List<Book> findAllBooks();
 
-    void updateBook(String bookName, String newBookName, String newBookAuthor, String newBookGenre);
+    void updateBook(Long bookId, String newBookName, String newBookAuthor, String newBookGenre);
 
-    void deleteBook(String bookName);
+    void deleteBook(Long bookId);
 }
