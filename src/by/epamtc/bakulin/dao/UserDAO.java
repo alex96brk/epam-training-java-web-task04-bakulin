@@ -9,11 +9,13 @@ public interface UserDAO {
 
     User createUser(String userName, String firstName, String lastName, String password);
 
+    User findUserByUserId(Long userId);
+
     User findUserByUserName(String userName);
 
     List<User> findAllUsers();
 
-    void updateUser(String userName, String newUserName, String newFirstName, String newLastName, String newPassword, Role newUserRole);
+    void updateUser(Long userId, String newUserName, String newFirstName, String newLastName, String newPassword, Role newUserRole);
 
-    void deleteUser(String userName);
+    void deleteUser(Long userId);
 }
