@@ -34,6 +34,25 @@ public class TXTUserDAO implements UserDAO {
     }
 
     @Override
+    public User findUserByUserId(Long userId) {
+        List<User> users = findAllUsers();
+        User searchUser = null;
+        try {
+            for (User user : users) {
+                if (user.getUserId().equals(userId)) {
+                    searchUser = user;
+                }
+            }
+            if (searchUser == null) {
+                throw new UserNotFoundException(String.format("User not found: userId = %s", userId));
+            }
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+        }
+        return searchUser;
+    }
+
+    @Override
     public User findUserByUserName(String userName) {
         List<User> users = findAllUsers();
         User searchUser = null;
@@ -58,8 +77,8 @@ public class TXTUserDAO implements UserDAO {
     }
 
     @Override
-    public void updateUser(String userName, String newUserName, String newFirstName, String newLastName, String newPassword, Role newUserRole) {
-        User user = findUserByUserName(userName);
+    public void updateUser(Long userId, String newUserName, String newFirstName, String newLastName, String newPassword, Role newUserRole) {
+        User user = findUserByUserId(userId);
         String oldUserStr = user.toString();
         populateUserData(user, newUserName, newFirstName, newLastName, newPassword, newUserRole);
         String updatedUserStr = user.toString();
@@ -67,8 +86,8 @@ public class TXTUserDAO implements UserDAO {
     }
 
     @Override
-    public void deleteUser(String userName) {
-        User user = findUserByUserName(userName);
+    public void deleteUser(Long userId) {
+        User user = findUserByUserId(userId);
         String oldUserStr = user.toString();
         String updatedUserStr = "";
         ioManager.replaceDataLine(USERS_SOURCE_PATH, USERS_CACHE_PATH, oldUserStr, updatedUserStr);
