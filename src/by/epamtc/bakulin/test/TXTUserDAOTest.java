@@ -37,7 +37,7 @@ public class TXTUserDAOTest {
 
     @Test
     public void test4() {
-        dao.updateUser("anderHolod", "andrey456holod", "Andrey", "Holodnov", "sjhkjsg2345", Role.USER);
+        dao.updateUser(4045569050689157120L, "andrey456holod", "Andrey", "Holodnov", "sjhkjsg2345", Role.USER);
         List<User> users = dao.findAllUsers();
         for (User user : users) {
             System.out.println(user);
@@ -46,7 +46,7 @@ public class TXTUserDAOTest {
 
     @Test
     public void test5() {
-        dao.deleteUser("tamaVoron");
+        dao.deleteUser(4045569050689157120L);
     }
 
 
