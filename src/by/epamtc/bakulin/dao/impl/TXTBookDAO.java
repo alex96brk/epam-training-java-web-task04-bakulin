@@ -1,6 +1,7 @@
 package by.epamtc.bakulin.dao.impl;
 
 import by.epamtc.bakulin.dao.BookDAO;
+import by.epamtc.bakulin.exception.BookNotFoundException;
 import by.epamtc.bakulin.io.IOManager;
 import by.epamtc.bakulin.model.Book;
 
@@ -25,17 +26,66 @@ public class TXTBookDAO implements BookDAO {
 
     @Override
     public Book createBook(String bookName, String bookAuthor, String bookGenre) {
-        return null;
+        Book book = new Book(bookName, bookAuthor, bookGenre);
+        ioManager.appendDataLine(BOOKS_SOURCE_PATH, book + "\n", true);
+        return book;
+    }
+
+    @Override
+    public Book findBookByBookId(Long bookId) {
+        List<Book> books = findAllBooks();
+        Book searchBook = null;
+        try {
+            for (Book book : books) {
+                if (book.getBookId().equals(bookId)) {
+                    searchBook = book;
+                }
+            }
+            if (searchBook == null) {
+                throw new BookNotFoundException("Book not found: " + bookId);
+            }
+        } catch (BookNotFoundException exception) {
+            exception.printStackTrace();
+        }
+        return searchBook;
     }
 
     @Override
     public Book findBookByBookAuthor(String bookAuthor) {
-        return null;
+        List<Book> books = findAllBooks();
+        Book searchBook = null;
+        try {
+            for (Book book : books) {
+                if (book.getBookAuthor().equalsIgnoreCase(bookAuthor)) {
+                    searchBook = book;
+                }
+            }
+            if (searchBook == null) {
+                throw new BookNotFoundException("Book not found: " + bookAuthor);
+            }
+        } catch (BookNotFoundException exception) {
+            exception.printStackTrace();
+        }
+        return searchBook;
     }
 
     @Override
     public Book findBookByBookName(String bookName) {
-        return null;
+        List<Book> books = findAllBooks();
+        Book searchBook = null;
+        try {
+            for (Book book : books) {
+                if (book.getBookName().equalsIgnoreCase(bookName)) {
+                    searchBook = book;
+                }
+            }
+            if (searchBook == null) {
+                throw new BookNotFoundException("Book not found: " + bookName);
+            }
+        } catch (BookNotFoundException exception) {
+            exception.printStackTrace();
+        }
+        return searchBook;
     }
 
     @Override
@@ -44,13 +94,18 @@ public class TXTBookDAO implements BookDAO {
     }
 
     @Override
-    public void updateBook(String bookName, String newBookName, String newBookAuthor, String newBookGenre) {
-
+    public void updateBook(Long bookId, String newBookName, String newBookAuthor, String newBookGenre) {
+        Book book = findBookByBookId(bookId);
+        String oldBookStr = book.toString();
+        populateBookData(book, newBookName, newBookAuthor, newBookGenre);
+        String updatedBook = book.toString();
+        ioManager.replaceDataLine(BOOKS_SOURCE_PATH, BOOKS_CACHE_PATH, oldBookStr, updatedBook);
     }
 
     @Override
-    public void deleteBook(String bookName) {
-
+    public void deleteBook(Long bookId) {
+        Book book = findBookByBookId(bookId);
+        ioManager.replaceDataLine(BOOKS_SOURCE_PATH, BOOKS_CACHE_PATH, book.toString(), "");
     }
 
     private List<Book> convertBookDataToList(List<String> fileData) {
@@ -62,27 +117,36 @@ public class TXTBookDAO implements BookDAO {
         return result;
     }
 
+    private void populateBookData(Book targetBook, String newBookName, String newBookAuthor, String newBookGenre) {
+        if (newBookName != null) {
+            targetBook.setBookName(newBookName);
+        }
+        if (newBookAuthor != null) {
+            targetBook.setBookAuthor(newBookAuthor);
+        }
+        if (newBookGenre != null) {
+            targetBook.setBookGenre(newBookGenre);
+        }
+    }
+
     private String[] parseStringBook(String line) {
-        String[] strings = line.replaceAll("Book", "")
-                .replaceAll("=", "")
+        String[] strings = line.replace("Book{", "")
+                .replaceAll("bookId=", "")
+                .replaceAll("bookName='", "")
+                .replaceAll("bookAuthor='", "")
+                .replaceAll("bookGenre='", "")
                 .replaceAll("'", "")
-                .replaceAll("\\{", "")
-                .replaceAll(" ", "")
                 .replaceAll("\\}", "")
-                .replaceAll("bookId", "")
-                .replaceAll("bookName", "")
-                .replaceAll("bookAuthor", "")
-                .replaceAll("bookGenre", "")
-                .split(",");
+                .split(", ");
         return strings;
     }
 
-    private Book buildBook(String[] userProps) {
+    private Book buildBook(String[] bookProps) {
         Book book = new Book();
-        book.setBookId(Long.parseLong(userProps[0]));
-        book.setBookName(userProps[1]);
-        book.setBookAuthor(userProps[2]);
-        book.setBookGenre(userProps[3]);
+        book.setBookId(Long.parseLong(bookProps[0]));
+        book.setBookName(bookProps[1]);
+        book.setBookAuthor(bookProps[2]);
+        book.setBookGenre(bookProps[3]);
         return book;
     }
 }
