@@ -11,10 +11,6 @@ public class IOManagerTXT implements IOManager {
 
     private static Properties PROPERTIES;
 
-    public IOManagerTXT(Properties properties) {
-        this.PROPERTIES = properties;
-    }
-
     public IOManagerTXT() {}
 
     public static Properties getProperties() {
