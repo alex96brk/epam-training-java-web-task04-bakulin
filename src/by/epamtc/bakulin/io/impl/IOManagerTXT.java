@@ -73,10 +73,9 @@ public class IOManagerTXT implements IOManager {
             bufferedWriterCache = new BufferedWriter(new FileWriter(cacheFile, true));
             String line = null;
             while ((line = bufferedReaderSource.readLine()) != null) {
-                if (!line.equals(oldData)) {
+                if (!line.equalsIgnoreCase(oldData)) {
                     bufferedWriterCache.write(line);
                     bufferedWriterCache.newLine();
-
                 }
             }
             bufferedWriterCache.write(newData);
