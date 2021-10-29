@@ -53,11 +53,11 @@ public class Book implements Serializable, Comparable<Book> {
 
     @Override
     public String toString() {
-        return "Book{ " +
-                "bookId = " + bookId +
-                ", bookName = '" + bookName + '\'' +
-                ", bookAuthor = '" + bookAuthor + '\'' +
-                ", bookGenre = '" + bookGenre + '\'' +
+        return "Book{" +
+                "bookId=" + bookId +
+                ", bookName='" + bookName + '\'' +
+                ", bookAuthor='" + bookAuthor + '\'' +
+                ", bookGenre='" + bookGenre + '\'' +
                 '}';
     }
 
