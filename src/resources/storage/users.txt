@@ -1,6 +1,0 @@
-User{ userId = 7042368647332576256, userName = 'alexRaven', lastName = 'Raven', firstName = 'Alex', userRole = 'USER', password = 'lkjla3585'}
-User{ userId = 6417540351483616256, userName = 'annPerova', lastName = 'Petrova', firstName = 'Ann', userRole = 'ADMIN', password = 'sdgsl9023'}
-User{ userId = 5247180646341841920, userName = 'usirsgs', lastName = 'Bann', firstName = 'Alf', userRole = 'USER', password = 'lahg452'}
-User{ userId = 2075711075498447872, userName = 'tamaVoron', lastName = 'Voronova', firstName = 'Tamara', userRole = 'USER', password = 'plgir354'}
-User{ userId = 6172398768220273664, userName = 'ivanov90', lastName = 'Ivanov', firstName = 'Victor', userRole = 'USER', password = '312235ksgs'}
-User{ userId = 5577665552440642560, userName = 'andrey456holod', lastName = 'Holodnov', firstName = 'Andrey', userRole = 'USER', password = 'sjhkjsg2345'}
