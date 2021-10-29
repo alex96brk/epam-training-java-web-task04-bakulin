@@ -46,7 +46,7 @@ public class TXTUserDAOTest {
 
     @Test
     public void test5() {
-        dao.deleteUser("valeryProchor");
+        dao.deleteUser("tamaVoron");
     }
 
 
