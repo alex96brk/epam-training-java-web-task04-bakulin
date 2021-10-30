@@ -2,12 +2,16 @@ package by.epamtc.bakulin.io;
 
 import java.util.List;
 
-public interface IOManager {
+public interface IOConnector {
 
     List<String> readDocumentData(String propertyName);
 
-    void appendDataLine(String propertyName, String data, boolean isAppend);
+    void writeDataLine(String sourceConnectionProperty, String stringData);
 
-    void replaceDataLine(String sourceProperty, String cacheProperty, String oldData, String newData);
+    void writeDataLine(String sourceConnectionProperty, String stringData, boolean isAppend);
+
+    void updateDataLine(String sourceConnectionProperty, String cacheConnectionProperty, String oldDataLine, String newDataLine);
+
+    void deleteDataLine(String sourceConnectionProperty, String cacheConnectionProperty, String dataToReplace);
 
 }
