@@ -1,6 +1,6 @@
 package by.epamtc.bakulin.dao.impl;
 
-import by.epamtc.bakulin.dao.DAO;
+import by.epamtc.bakulin.dao.BookDAO;
 import by.epamtc.bakulin.io.IOEntityCollector;
 import by.epamtc.bakulin.io.IOConnector;
 import by.epamtc.bakulin.entity.Book;
@@ -8,7 +8,7 @@ import by.epamtc.bakulin.entity.Book;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TXTBookDAO implements DAO<Book>, IOEntityCollector<Book> {
+public class TXTBookDAO implements BookDAO, IOEntityCollector<Book> {
 
     private static final String BOOKS_SOURCE_PATH = "books.txt.source.path";
     private static final String BOOKS_CACHE_PATH = "books.txt.source.cache.path";
@@ -56,6 +56,11 @@ public class TXTBookDAO implements DAO<Book>, IOEntityCollector<Book> {
     @Override
     public void delete(Long id) {
         ioConnector.deleteDataLine(BOOKS_SOURCE_PATH, BOOKS_CACHE_PATH, findById(id).toString());
+    }
+
+    @Override
+    public Book findByAuthor(String author) {
+        return null;
     }
 
     public List<Book> collectFileData(List<String> fileData) {

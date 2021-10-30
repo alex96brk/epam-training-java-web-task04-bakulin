@@ -1,6 +1,6 @@
 package by.epamtc.bakulin.dao.impl;
 
-import by.epamtc.bakulin.dao.DAO;
+import by.epamtc.bakulin.dao.UserDAO;
 import by.epamtc.bakulin.io.IOEntityCollector;
 import by.epamtc.bakulin.io.IOConnector;
 import by.epamtc.bakulin.entity.Role;
@@ -9,7 +9,7 @@ import by.epamtc.bakulin.entity.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TXTUserDAO implements DAO<User>, IOEntityCollector<User> {
+public class TXTUserDAO implements UserDAO, IOEntityCollector<User> {
 
     private static final String USERS_SOURCE_PATH = "users.txt.source.path";
     private static final String USERS_CACHE_PATH = "users.txt.source.cache.path";
@@ -57,6 +57,11 @@ public class TXTUserDAO implements DAO<User>, IOEntityCollector<User> {
     @Override
     public void delete(Long id) {
         ioConnector.deleteDataLine(USERS_SOURCE_PATH, USERS_CACHE_PATH, findById(id).toString());
+    }
+
+    @Override
+    public User findByName(String userName) {
+        return null;
     }
 
     @Override
