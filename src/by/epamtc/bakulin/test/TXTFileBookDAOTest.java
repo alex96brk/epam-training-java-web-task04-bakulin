@@ -1,6 +1,6 @@
 package by.epamtc.bakulin.test;
 
-import by.epamtc.bakulin.dao.DAO;
+import by.epamtc.bakulin.dao.BookDAO;
 import by.epamtc.bakulin.dao.exception.DAOException;
 import by.epamtc.bakulin.dao.impl.TXTBookDAO;
 import by.epamtc.bakulin.io.impl.IOConnectorTXT;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class TXTBookDAOTest {
 
-    DAO<Book> dao = new TXTBookDAO(new IOConnectorTXT());
+    BookDAO dao = new TXTBookDAO(new IOConnectorTXT());
 
     @Test
     public void test1() throws DAOException {
