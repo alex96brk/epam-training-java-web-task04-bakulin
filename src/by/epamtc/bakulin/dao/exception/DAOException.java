@@ -1,4 +1,4 @@
-package by.epamtc.bakulin.dao;
+package by.epamtc.bakulin.dao.exception;
 
 public class DAOException extends Exception {
 
