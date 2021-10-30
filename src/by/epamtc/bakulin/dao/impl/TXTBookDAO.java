@@ -3,7 +3,7 @@ package by.epamtc.bakulin.dao.impl;
 import by.epamtc.bakulin.dao.DAO;
 import by.epamtc.bakulin.io.IOEntityCollector;
 import by.epamtc.bakulin.io.IOConnector;
-import by.epamtc.bakulin.model.Book;
+import by.epamtc.bakulin.entity.Book;
 
 import java.util.ArrayList;
 import java.util.List;

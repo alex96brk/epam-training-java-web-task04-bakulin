@@ -1,4 +1,4 @@
-package by.epamtc.bakulin.model.constant;
+package by.epamtc.bakulin.entity.constant;
 
 public class AuthoritiesConstant {
     public static final String[] USER_AUTHORITIES = {"user:read"};

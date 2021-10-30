@@ -4,8 +4,8 @@ import by.epamtc.bakulin.dao.DAO;
 import by.epamtc.bakulin.dao.exception.DAOException;
 import by.epamtc.bakulin.dao.impl.TXTUserDAO;
 import by.epamtc.bakulin.io.impl.IOConnectorTXT;
-import by.epamtc.bakulin.model.Role;
-import by.epamtc.bakulin.model.User;
+import by.epamtc.bakulin.entity.Role;
+import by.epamtc.bakulin.entity.User;
 import org.junit.Test;
 
 import java.util.List;

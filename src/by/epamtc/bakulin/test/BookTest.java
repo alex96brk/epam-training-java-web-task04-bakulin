@@ -1,6 +1,6 @@
 package by.epamtc.bakulin.test;
 
-import by.epamtc.bakulin.model.Book;
+import by.epamtc.bakulin.entity.Book;
 import org.junit.Assert;
 import org.junit.Test;
 

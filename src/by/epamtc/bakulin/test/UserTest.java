@@ -1,7 +1,7 @@
 package by.epamtc.bakulin.test;
 
-import by.epamtc.bakulin.model.Role;
-import by.epamtc.bakulin.model.User;
+import by.epamtc.bakulin.entity.Role;
+import by.epamtc.bakulin.entity.User;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;

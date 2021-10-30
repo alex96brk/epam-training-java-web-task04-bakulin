@@ -1,4 +1,4 @@
-package by.epamtc.bakulin.model;
+package by.epamtc.bakulin.entity;
 
 
 import java.io.Serializable;

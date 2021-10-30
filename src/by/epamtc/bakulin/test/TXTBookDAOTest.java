@@ -4,7 +4,7 @@ import by.epamtc.bakulin.dao.DAO;
 import by.epamtc.bakulin.dao.exception.DAOException;
 import by.epamtc.bakulin.dao.impl.TXTBookDAO;
 import by.epamtc.bakulin.io.impl.IOConnectorTXT;
-import by.epamtc.bakulin.model.Book;
+import by.epamtc.bakulin.entity.Book;
 import org.junit.Test;
 
 import java.util.List;
