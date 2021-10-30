@@ -13,8 +13,6 @@ import java.util.List;
 public class DAOFactoryTest {
     static TXTDAOFactory TXT_DAO_FACTORY = TXTDAOFactory.getInstance();
 
-
-
     @Test
     public void test1() throws DAOException {
 
