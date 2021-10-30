@@ -1,127 +1,76 @@
 package by.epamtc.bakulin.dao.impl;
 
-import by.epamtc.bakulin.dao.UserDAO;
-import by.epamtc.bakulin.exception.UserNotFoundException;
-import by.epamtc.bakulin.io.IOManager;
+import by.epamtc.bakulin.dao.DAO;
+import by.epamtc.bakulin.io.IOEntityCollector;
+import by.epamtc.bakulin.io.IOConnector;
 import by.epamtc.bakulin.model.Role;
 import by.epamtc.bakulin.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TXTUserDAO implements UserDAO {
+public class TXTUserDAO implements DAO<User>, IOEntityCollector<User> {
 
-    private static final String USERS_SOURCE_PATH = "users.source.path";
-    private static final String USERS_CACHE_PATH = "users.source.cache.path";
-    private IOManager ioManager;
+    private static final String USERS_SOURCE_PATH = "users.txt.source.path";
+    private static final String USERS_CACHE_PATH = "users.txt.source.cache.path";
 
-    public TXTUserDAO(IOManager ioManager) {
-        this.ioManager = ioManager;
-    }
+    private IOConnector ioConnector;
 
     public TXTUserDAO() {
     }
 
-    public void setIoManager(IOManager ioManager) {
-        this.ioManager = ioManager;
+    public TXTUserDAO(IOConnector ioConnector) {
+        this.ioConnector = ioConnector;
+    }
+
+    public void setIoConnector(IOConnector ioConnector) {
+        this.ioConnector = ioConnector;
     }
 
     @Override
-    public User createUser(String userName, String firstName, String lastName, String password) {
-        User user = new User(userName, firstName, lastName, password);
-        ioManager.appendDataLine(USERS_SOURCE_PATH, user + "\n", true);
-        return user;
+    public void add(User entity) {
+        ioConnector.writeDataLine(USERS_SOURCE_PATH, entity.toString() + "\n");
     }
 
     @Override
-    public User findUserByUserId(Long userId) {
-        List<User> users = findAllUsers();
-        User searchUser = null;
-        try {
-            for (User user : users) {
-                if (user.getUserId().equals(userId)) {
-                    searchUser = user;
-                }
+    public User findById(Long id) {
+        List<User> users = findAll();
+        User result = null;
+        for (User user : users) {
+            if (user.getUserId().equals(id)) {
+                result = user;
             }
-            if (searchUser == null) {
-                throw new UserNotFoundException(String.format("User not found: userId = %s", userId));
-            }
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-        }
-        return searchUser;
-    }
-
-    @Override
-    public User findUserByUserName(String userName) {
-        List<User> users = findAllUsers();
-        User searchUser = null;
-        try {
-            for (User user : users) {
-                if (user.getUserName().equalsIgnoreCase(userName)) {
-                    searchUser = user;
-                }
-            }
-            if (searchUser == null) {
-                throw new UserNotFoundException(String.format("User not found: userName = %s", userName));
-            }
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-        }
-        return searchUser;
-    }
-
-    @Override
-    public List<User> findAllUsers() {
-        return convertUserDataToList(ioManager.readDocumentData(USERS_SOURCE_PATH));
-    }
-
-    @Override
-    public void updateUser(Long userId, String newUserName, String newFirstName, String newLastName, String newPassword, Role newUserRole) {
-        User user = findUserByUserId(userId);
-        String oldUserStr = user.toString();
-        populateUserData(user, newUserName, newFirstName, newLastName, newPassword, newUserRole);
-        String updatedUserStr = user.toString();
-        ioManager.replaceDataLine(USERS_SOURCE_PATH, USERS_CACHE_PATH, oldUserStr, updatedUserStr);
-    }
-
-    @Override
-    public void deleteUser(Long userId) {
-        User user = findUserByUserId(userId);
-        String oldUserStr = user.toString();
-        String updatedUserStr = "";
-        ioManager.replaceDataLine(USERS_SOURCE_PATH, USERS_CACHE_PATH, oldUserStr, updatedUserStr);
-
-    }
-
-    private List<User> convertUserDataToList(List<String> fileData) {
-        List<User> result = new ArrayList<>();
-        for (int i = 0; i < fileData.size(); i++) {
-            User user = buildUser(parseStringUser(fileData.get(i)));
-            result.add(user);
         }
         return result;
     }
 
-    private void populateUserData(User targetUser, String newUserName, String newFirstName, String newLastName, String newPassword, Role newUserRole) {
-        if (newUserName != null) {
-            targetUser.setUserName(newUserName);
-        }
-        if (newFirstName != null) {
-            targetUser.setFirstName(newFirstName);
-        }
-        if (newLastName != null) {
-            targetUser.setLastName(newLastName);
-        }
-        if (newPassword != null) {
-            targetUser.setPassword(newPassword);
-        }
-        if (newUserRole != null) {
-            targetUser.setUserRole(newUserRole);
-        }
+    @Override
+    public List<User> findAll() {
+        return collectFileData(ioConnector.readDocumentData(USERS_SOURCE_PATH));
     }
 
-    private String[] parseStringUser(String line) {
+    @Override
+    public void update(User entity) {
+        ioConnector.updateDataLine(USERS_SOURCE_PATH, USERS_CACHE_PATH, findById(entity.getUserId()).toString(), entity.toString());
+    }
+
+    @Override
+    public void delete(Long id) {
+        ioConnector.deleteDataLine(USERS_SOURCE_PATH, USERS_CACHE_PATH, findById(id).toString());
+    }
+
+    @Override
+    public List<User> collectFileData(List<String> fileData) {
+        List<User> users = new ArrayList<>();
+        for (int i = 0; i < fileData.size(); i++) {
+            User user = buildEntity(parseStringLine(fileData.get(i)));
+            users.add(user);
+        }
+        return users;
+    }
+
+    @Override
+    public String[] parseStringLine(String line) {
         String[] strings = line.replaceAll("User", "")
                 .replaceAll("=", "")
                 .replaceAll("'", "")
@@ -138,20 +87,20 @@ public class TXTUserDAO implements UserDAO {
         return strings;
     }
 
-    private User buildUser(String[] userProps) {
+    @Override
+    public User buildEntity(String[] entityProps) {
         User user = new User();
-        user.setUserId(Long.parseLong(userProps[0]));
-        user.setUserName(userProps[1]);
-        user.setLastName(userProps[2]);
-        user.setFirstName(userProps[3]);
-        if (userProps[4].equalsIgnoreCase("USER")) {
+        user.setUserId(Long.parseLong(entityProps[0]));
+        user.setUserName(entityProps[1]);
+        user.setLastName(entityProps[2]);
+        user.setFirstName(entityProps[3]);
+        if (entityProps[4].equalsIgnoreCase("USER")) {
             user.setUserRole(Role.USER);
         }
-        if (userProps[4].equalsIgnoreCase("ADMIN")) {
+        if (entityProps[4].equalsIgnoreCase("ADMIN")) {
             user.setUserRole(Role.ADMIN);
         }
-        user.setPassword(userProps[5]);
+        user.setPassword(entityProps[5]);
         return user;
     }
-
 }
