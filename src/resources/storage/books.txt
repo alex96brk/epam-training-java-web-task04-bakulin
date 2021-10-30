@@ -1,6 +1,5 @@
 Book{bookId=7758824358867060736, bookName='Count of Monte Cristo', bookAuthor='Alexandr Duma', bookGenre='Historical Novel'}
 Book{bookId=4840216492999494656, bookName='Dune', bookAuthor='Frank Herbert', bookGenre='Fantastic Novel'}
 Book{bookId=1083762518538963968, bookName='Altered Carbon', bookAuthor='Richard Morgan', bookGenre='Fantastic Novel'}
-Book{bookId=7634399147678983168, bookName='Quiet Done', bookAuthor='Michael Sholokhov', bookGenre='Historical Novel'}
 Book{bookId=2816240324462592000, bookName='Thinking in Java', bookAuthor='Bruce Eckel', bookGenre='Computer Science'}
 Book{bookId=8944158836706102272, bookName='Code Complete', bookAuthor='Steve McConnell', bookGenre='Computer Science'}
