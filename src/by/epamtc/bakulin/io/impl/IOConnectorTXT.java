@@ -1,17 +1,17 @@
 package by.epamtc.bakulin.io.impl;
 
-import by.epamtc.bakulin.io.IOManager;
+import by.epamtc.bakulin.io.IOConnector;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class IOManagerTXT implements IOManager {
+public class IOConnectorTXT implements IOConnector {
 
     private static Properties PROPERTIES;
 
-    public IOManagerTXT() {}
+    public IOConnectorTXT() {}
 
     public static Properties getProperties() {
         return PROPERTIES;
@@ -45,8 +45,14 @@ public class IOManagerTXT implements IOManager {
         return data;
     }
 
-    public void appendDataLine(String propertyName, String data, boolean isAppend) {
-        String path = PROPERTIES.getProperty(propertyName);
+    @Override
+    public void writeDataLine(String sourceConnectionProperty, String stringData) {
+        writeDataLine(sourceConnectionProperty, stringData, true);
+    }
+
+    @Override
+    public void writeDataLine(String sourceConnectionProperty, String data, boolean isAppend) {
+        String path = PROPERTIES.getProperty(sourceConnectionProperty);
         File file = new File(path);
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, isAppend))) {
             if (!file.exists()) {
@@ -58,9 +64,15 @@ public class IOManagerTXT implements IOManager {
         }
     }
 
-    public void replaceDataLine(String sourceProperty, String cacheProperty, String oldData, String newData) {
-        String source_path = PROPERTIES.getProperty(sourceProperty);
-        String cache_path = PROPERTIES.getProperty(cacheProperty);
+    @Override
+    public void deleteDataLine(String sourceConnectionProperty, String cacheConnectionProperty, String dataToDelete) {
+        updateDataLine(sourceConnectionProperty, cacheConnectionProperty, dataToDelete, "");
+    }
+
+    @Override
+    public void updateDataLine(String sourceConnectionProperty, String cacheConnectionProperty, String dataToUpdate, String newDataLine) {
+        String source_path = PROPERTIES.getProperty(sourceConnectionProperty);
+        String cache_path = PROPERTIES.getProperty(cacheConnectionProperty);
 
         File sourceFile = new File(source_path);
         File cacheFile = new File(cache_path);
@@ -73,12 +85,12 @@ public class IOManagerTXT implements IOManager {
             bufferedWriterCache = new BufferedWriter(new FileWriter(cacheFile, true));
             String line = null;
             while ((line = bufferedReaderSource.readLine()) != null) {
-                if (!line.equalsIgnoreCase(oldData)) {
+                if (!line.equalsIgnoreCase(dataToUpdate)) {
                     bufferedWriterCache.write(line);
                     bufferedWriterCache.newLine();
                 }
             }
-            bufferedWriterCache.write(newData);
+            bufferedWriterCache.write(newDataLine);
         } catch (Exception exception) {
             exception.printStackTrace();
         } finally {
