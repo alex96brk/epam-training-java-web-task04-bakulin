@@ -12,6 +12,12 @@ public class BookServiceImpl implements BookService {
 
     private BookDAO bookDAO;
 
+    public BookServiceImpl(BookDAO bookDAO) {
+        this.bookDAO = bookDAO;
+    }
+
+    public BookServiceImpl() {}
+
     public void setBookDAO(BookDAO bookDAO) {
         this.bookDAO = bookDAO;
     }
