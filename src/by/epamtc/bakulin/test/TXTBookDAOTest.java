@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-public class TXTFileBookDAOTest {
+public class TXTBookDAOTest {
 
     BookDAO dao = new TXTBookDAO(new IOConnectorTXT());
 
