@@ -18,6 +18,7 @@ public class UserServiceImpl implements UserService {
 
     public UserServiceImpl() {}
 
+    @Override
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
@@ -57,7 +58,7 @@ public class UserServiceImpl implements UserService {
     public List<User> findAllUsers() throws ServiceException {
         List<User> users = null;
         try {
-            userDAO.findAll();
+            users = userDAO.findAll();
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
