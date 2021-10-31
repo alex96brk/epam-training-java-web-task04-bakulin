@@ -1,22 +1,22 @@
 package by.epamtc.bakulin.service;
 
 import by.epamtc.bakulin.entity.Book;
+import by.epamtc.bakulin.service.exception.ServiceException;
 
 import java.util.List;
 
 public interface BookService {
 
-    void addBook(Book book);
+    void addBook(Book book) throws ServiceException;
 
-    Book findBookById(Long id);
+    Book findBookById(Long id) throws ServiceException;
 
-    Book findBookByName(String bookName);
+    Book findBookByAuthor(String bookAuthor) throws ServiceException;
 
-    List<Book> findAllBooks();
+    List<Book> findAllBooks() throws ServiceException;
 
-    void updateBook(Book book);
+    void updateBook(Book book) throws ServiceException;
 
-    void deleteBook(Long id);
-
+    void deleteBook(Long id) throws ServiceException;
 
 }
