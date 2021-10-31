@@ -1,5 +1,6 @@
 package by.epamtc.bakulin.service;
 
+import by.epamtc.bakulin.dao.BookDAO;
 import by.epamtc.bakulin.entity.Book;
 import by.epamtc.bakulin.service.exception.ServiceException;
 
@@ -18,5 +19,7 @@ public interface BookService {
     void updateBook(Book book) throws ServiceException;
 
     void deleteBook(Long id) throws ServiceException;
+
+    void setBookDAO(BookDAO bookDAO);
 
 }

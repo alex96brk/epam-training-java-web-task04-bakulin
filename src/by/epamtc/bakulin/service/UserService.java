@@ -1,5 +1,6 @@
 package by.epamtc.bakulin.service;
 
+import by.epamtc.bakulin.dao.UserDAO;
 import by.epamtc.bakulin.dao.exception.DAOException;
 import by.epamtc.bakulin.entity.User;
 import by.epamtc.bakulin.service.exception.ServiceException;
@@ -19,6 +20,8 @@ public interface UserService {
     void updateUser(User user) throws ServiceException;
 
     void deleteUser(Long id) throws ServiceException;
+
+    void setUserDAO(UserDAO userDAO);
 
 
 }
