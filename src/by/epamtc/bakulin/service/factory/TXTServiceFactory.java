@@ -1,21 +1,20 @@
 package by.epamtc.bakulin.service.factory;
 
-import by.epamtc.bakulin.dao.BookDAO;
 import by.epamtc.bakulin.dao.factory.TXTDAOFactory;
 import by.epamtc.bakulin.service.BookService;
 import by.epamtc.bakulin.service.UserService;
 import by.epamtc.bakulin.service.impl.BookServiceImpl;
 import by.epamtc.bakulin.service.impl.UserServiceImpl;
 
-public class ServiceFactory {
+public class TXTServiceFactory {
 
-    private static final ServiceFactory INSTANCE = new ServiceFactory();
+    private static final TXTServiceFactory INSTANCE = new TXTServiceFactory();
     private UserService userService;
     private BookService bookService;
 
-    private ServiceFactory() {}
+    private TXTServiceFactory() {}
 
-    public static ServiceFactory getInstance() {
+    public static TXTServiceFactory getInstance() {
         return INSTANCE;
     }
 
