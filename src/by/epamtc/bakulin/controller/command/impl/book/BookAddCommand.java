@@ -23,6 +23,7 @@ public class BookAddCommand implements Command {
             cmdResponse = book.toString();
         } catch (Exception e) {
             e.printStackTrace();
+            cmdResponse = "Bad request";
         }
         return cmdResponse;
     }
