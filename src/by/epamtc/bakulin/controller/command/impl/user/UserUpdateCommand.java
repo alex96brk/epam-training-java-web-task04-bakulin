@@ -10,16 +10,16 @@ public class UserUpdateCommand implements Command {
 
     private TXTServiceFactory txtServiceFactory = TXTServiceFactory.getInstance();
     private UserService userService = txtServiceFactory.getUserService();
+    private String[] requestParameters;
 
     @Override
-    public String execute(String cmdRequest) {
-        String[] target = cmdRequest.split(" \\$");
-        Long userId = Long.parseLong(target[1]);
-        String userName = target[2];
-        String firstName = target[3];
-        String lastName = target[4];
-        String password = target[5];
-        String roleStr = target[6];
+    public String execute() {
+        Integer userId = Integer.parseInt(requestParameters[1]);
+        String userName = requestParameters[2];
+        String firstName = requestParameters[3];
+        String lastName = requestParameters[4];
+        String password = requestParameters[5];
+        String roleStr = requestParameters[6];
         String cmdResponse = null;
         try {
             User user = userService.findUserById(userId);
@@ -40,5 +40,10 @@ public class UserUpdateCommand implements Command {
             cmdResponse = "Bad request";
         }
         return cmdResponse;
+    }
+
+    @Override
+    public void setRequestParameters(String[] requestParameters) {
+        this.requestParameters = requestParameters;
     }
 }

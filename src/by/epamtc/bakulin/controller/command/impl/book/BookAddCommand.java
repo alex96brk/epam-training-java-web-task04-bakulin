@@ -9,13 +9,13 @@ public class BookAddCommand implements Command {
 
     private TXTServiceFactory txtServiceFactory = TXTServiceFactory.getInstance();
     private BookService bookService = txtServiceFactory.getBookService();
+    private String[] requestParameters;
 
     @Override
-    public String execute(String cmdRequest) {
-        String[] target = cmdRequest.split(" \\$");
-        String bookName = target[1];
-        String bookAuthor = target[2];
-        String bookGenre = target[3];
+    public String execute() {
+        String bookName = requestParameters[1];
+        String bookAuthor = requestParameters[2];
+        String bookGenre = requestParameters[3];
         String cmdResponse = null;
         try {
             Book book = new Book(bookName, bookAuthor, bookGenre);
@@ -26,5 +26,10 @@ public class BookAddCommand implements Command {
             cmdResponse = "Bad request";
         }
         return cmdResponse;
+    }
+
+    @Override
+    public void setRequestParameters(String[] requestParameters) {
+        this.requestParameters = requestParameters;
     }
 }

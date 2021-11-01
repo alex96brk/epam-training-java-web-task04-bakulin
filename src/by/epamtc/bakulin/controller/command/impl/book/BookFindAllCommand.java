@@ -12,9 +12,10 @@ public class BookFindAllCommand implements Command {
 
     private TXTServiceFactory txtServiceFactory = TXTServiceFactory.getInstance();
     private BookService bookService = txtServiceFactory.getBookService();
+    private String[] requestParameters;
 
     @Override
-    public String execute(String cmdRequest) {
+    public String execute() {
         String cmdResponse = null;
         try {
             List<Book> books =  bookService.findAllBooks();
@@ -24,5 +25,10 @@ public class BookFindAllCommand implements Command {
             cmdResponse = "Bad request";
         }
         return cmdResponse;
+    }
+
+    @Override
+    public void setRequestParameters(String[] requestParameters) {
+        this.requestParameters = this.requestParameters;
     }
 }

@@ -8,11 +8,11 @@ public class UserDeleteCommand implements Command {
 
     private TXTServiceFactory txtServiceFactory = TXTServiceFactory.getInstance();
     private UserService userService = txtServiceFactory.getUserService();
+    private String[] requestParameters;
 
     @Override
-    public String execute(String cmdRequest) {
-        String[] target = cmdRequest.split(" \\$");
-        Long id = Long.parseLong(target[1]);
+    public String execute() {
+        Integer id = Integer.parseInt(requestParameters[1]);
         String cmdResponse = null;
         try {
             userService.deleteUser(id);
@@ -22,5 +22,10 @@ public class UserDeleteCommand implements Command {
             cmdResponse = "Bad request";
         }
         return cmdResponse;
+    }
+
+    @Override
+    public void setRequestParameters(String[] requestParameters) {
+        this.requestParameters = requestParameters;
     }
 }

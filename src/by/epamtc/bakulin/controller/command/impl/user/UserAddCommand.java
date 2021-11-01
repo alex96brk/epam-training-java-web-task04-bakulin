@@ -9,14 +9,14 @@ public class UserAddCommand implements Command {
 
     private TXTServiceFactory txtServiceFactory = TXTServiceFactory.getInstance();
     private UserService userService = txtServiceFactory.getUserService();
+    private String[] requestParameters;
 
     @Override
-    public String execute(String cmdRequest) {
-        String[] target = cmdRequest.split(" \\$");
-        String userName = target[1];
-        String firstName = target[2];
-        String lastName = target[3];
-        String password = target[4];
+    public String execute() {
+        String userName = requestParameters[1];
+        String firstName = requestParameters[2];
+        String lastName = requestParameters[3];
+        String password = requestParameters[4];
         String cmdResponse = null;
 
         try {
@@ -29,5 +29,10 @@ public class UserAddCommand implements Command {
         }
 
         return cmdResponse;
+    }
+
+    @Override
+    public void setRequestParameters(String[] requestParameters) {
+        this.requestParameters = requestParameters;
     }
 }

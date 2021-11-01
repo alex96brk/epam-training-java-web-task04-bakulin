@@ -12,9 +12,10 @@ public class UserFindAllCommand implements Command {
 
     private TXTServiceFactory txtServiceFactory = TXTServiceFactory.getInstance();
     private UserService userService = txtServiceFactory.getUserService();
+    private String[] requestParameters;
 
     @Override
-    public String execute(String cmdRequest) {
+    public String execute() {
         String cmdResponse = null;
         try {
             List<User> users = userService.findAllUsers();
@@ -23,5 +24,10 @@ public class UserFindAllCommand implements Command {
             cmdResponse = "Bad request";
         }
         return cmdResponse;
+    }
+
+    @Override
+    public void setRequestParameters(String[] requestParameters) {
+        this.requestParameters = requestParameters;
     }
 }

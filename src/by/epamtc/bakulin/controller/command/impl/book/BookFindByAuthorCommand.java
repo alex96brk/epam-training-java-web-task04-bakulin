@@ -9,11 +9,11 @@ public class BookFindByAuthorCommand implements Command {
 
     private TXTServiceFactory txtServiceFactory = TXTServiceFactory.getInstance();
     private BookService bookService = txtServiceFactory.getBookService();
+    private String[] requestParameters;
 
     @Override
-    public String execute(String cmdRequest) {
-        String[] target = cmdRequest.split(" \\$");
-        String bookAuthor = target[1];
+    public String execute() {
+        String bookAuthor = requestParameters[1];
         String cmdResponse = null;
         try {
             Book book = bookService.findBookByAuthor(bookAuthor);
@@ -23,5 +23,10 @@ public class BookFindByAuthorCommand implements Command {
             cmdResponse = "Bad request";
         }
         return cmdResponse;
+    }
+
+    @Override
+    public void setRequestParameters(String[] requestParameters) {
+        this.requestParameters = requestParameters;
     }
 }

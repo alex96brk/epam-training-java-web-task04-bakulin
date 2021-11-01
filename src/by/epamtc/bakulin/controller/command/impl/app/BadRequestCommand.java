@@ -7,7 +7,12 @@ public class BadRequestCommand implements Command {
     private static final String cmdResponse = "Bad Request";
 
     @Override
-    public String execute(String cmdRequest) {
+    public String execute() {
         return cmdResponse;
+    }
+
+    @Override
+    public void setRequestParameters(String[] requestParameters) {
+
     }
 }

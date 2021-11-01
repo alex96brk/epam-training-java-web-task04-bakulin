@@ -9,11 +9,11 @@ public class UserFindByNameCommand implements Command {
 
     private TXTServiceFactory txtServiceFactory = TXTServiceFactory.getInstance();
     private UserService userService = txtServiceFactory.getUserService();
+    private String[] requestParameters;
 
     @Override
-    public String execute(String cmdRequest) {
-        String[] target = cmdRequest.split(" \\$");
-        String userName = target[1];
+    public String execute() {
+        String userName = requestParameters[1];
         String cmdResponse = null;
         try {
             User user = userService.findUserByName(userName);
@@ -23,5 +23,10 @@ public class UserFindByNameCommand implements Command {
             cmdResponse = "Bad request";
         }
         return cmdResponse;
+    }
+
+    @Override
+    public void setRequestParameters(String[] requestParameters) {
+        this.requestParameters = requestParameters;
     }
 }

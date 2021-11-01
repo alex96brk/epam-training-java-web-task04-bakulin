@@ -5,20 +5,18 @@ import by.epamtc.bakulin.entity.Book;
 import by.epamtc.bakulin.service.BookService;
 import by.epamtc.bakulin.service.factory.TXTServiceFactory;
 
-import java.util.logging.Logger;
-
 public class BookUpdateCommand implements Command {
 
     private TXTServiceFactory txtServiceFactory = TXTServiceFactory.getInstance();
     private BookService bookService = txtServiceFactory.getBookService();
+    private String[] requestParameters;
 
     @Override
-    public String execute(String cmdRequest) {
-        String[] target = cmdRequest.split(" \\$");
-        Long bookId = Long.parseLong(target[1]);
-        String bookName = target[2];
-        String bookAuthor = target[3];
-        String bookGenre = target[4];
+    public String execute() {
+        Integer bookId = Integer.parseInt(requestParameters[1]);
+        String bookName = requestParameters[2];
+        String bookAuthor = requestParameters[3];
+        String bookGenre = requestParameters[4];
         String cmdResponse = null;
         try {
             Book book = bookService.findBookById(bookId);
@@ -31,5 +29,10 @@ public class BookUpdateCommand implements Command {
             e.printStackTrace();
         }
         return cmdResponse;
+    }
+
+    @Override
+    public void setRequestParameters(String[] requestParameters) {
+        this.requestParameters = requestParameters;
     }
 }
