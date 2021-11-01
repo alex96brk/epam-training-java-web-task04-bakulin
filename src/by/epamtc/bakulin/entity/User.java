@@ -101,12 +101,12 @@ public class User implements Serializable, Comparable<User> {
     @Override
     public String toString() {
         return "User{" +
-                " userId = " + userId +
-                ", userName = '" + userName + '\'' +
-                ", lastName = '" + lastName + '\'' +
-                ", firstName = '" + firstName + '\'' +
-                ", userRole = '" + userRole + '\'' +
-                ", password = '" + password + '\'' +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", userRole=" + userRole +
+                ", password='" + password + '\'' +
                 '}';
     }
 
