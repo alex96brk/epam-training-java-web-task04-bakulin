@@ -33,7 +33,7 @@ public class TXTUserDAO implements UserDAO, IOEntityCollector<User> {
     }
 
     @Override
-    public User findById(Long id) {
+    public User findById(Integer id) {
         List<User> users = findAll();
         User result = null;
         for (User user : users) {
@@ -55,7 +55,7 @@ public class TXTUserDAO implements UserDAO, IOEntityCollector<User> {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Integer id) {
         System.out.println("find by id: "+findById(id).toString());
         ioConnector.deleteDataLine(USERS_SOURCE_PATH, USERS_CACHE_PATH, findById(id).toString());
     }
@@ -101,7 +101,7 @@ public class TXTUserDAO implements UserDAO, IOEntityCollector<User> {
     @Override
     public User buildEntity(String[] entityProps) {
         User user = new User();
-        user.setUserId(Long.parseLong(entityProps[0]));
+        user.setUserId(Integer.parseInt(entityProps[0]));
         user.setUserName(entityProps[1]);
         user.setLastName(entityProps[2]);
         user.setFirstName(entityProps[3]);

@@ -32,7 +32,7 @@ public class TXTBookDAO implements BookDAO, IOEntityCollector<Book> {
     }
 
     @Override
-    public Book findById(Long id) {
+    public Book findById(Integer id) {
         List<Book> books = findAll();
         Book result = null;
         for (Book book : books) {
@@ -54,7 +54,7 @@ public class TXTBookDAO implements BookDAO, IOEntityCollector<Book> {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Integer id) {
         ioConnector.deleteDataLine(BOOKS_SOURCE_PATH, BOOKS_CACHE_PATH, findById(id).toString());
     }
 
@@ -93,7 +93,7 @@ public class TXTBookDAO implements BookDAO, IOEntityCollector<Book> {
 
     public Book buildEntity(String[] entityProps) {
         Book book = new Book();
-        book.setBookId(Long.parseLong(entityProps[0]));
+        book.setBookId(Integer.parseInt(entityProps[0]));
         book.setBookName(entityProps[1]);
         book.setBookAuthor(entityProps[2]);
         book.setBookGenre(entityProps[3]);
