@@ -51,7 +51,7 @@ public class CommandSequenceTest {
 
     @Test
     public void testUserCommand2() {
-        String cmdRequest = "user_find_by_id $3107024621590589440";
+        String cmdRequest = "user_find_by_id $5333580729289848832";
         System.out.println(commandSequence.getCommand(cmdRequest).execute(cmdRequest));
     }
     @Test
@@ -61,7 +61,7 @@ public class CommandSequenceTest {
     }
     @Test
     public void testUserCommand4() {
-        String cmdRequest = "user_delete $1875660703570902016";
+        String cmdRequest = "user_delete $8629434380267018240";
         System.out.println(commandSequence.getCommand(cmdRequest).execute(cmdRequest));
     }
     @Test
@@ -71,9 +71,8 @@ public class CommandSequenceTest {
     }
     @Test
     public void testUserCommand6() {
-        String cmdRequest = "user_update $9043868949340740608 $anderHolod $Holodnov $Andrew  $sglhs09 $admin";
+        String cmdRequest = "user_update $8960285287894992896 $anderHolod $Holodnov $Andrew $sglhs09 $admin";
         System.out.println(commandSequence.getCommand(cmdRequest).execute(cmdRequest));
     }
-    //User{ userId = 9043868949340740608, userName = 'anderHolod', lastName = 'Holodny', firstName = 'Andrey', userRole = 'USER', password = 'sglhs09'}
 
 }
