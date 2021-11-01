@@ -103,8 +103,8 @@ public class User implements Serializable, Comparable<User> {
         return "User{" +
                 "userId=" + userId +
                 ", userName='" + userName + '\'' +
-                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", firstName='" + firstName + '\'' +
                 ", userRole=" + userRole +
                 ", password='" + password + '\'' +
                 '}';
