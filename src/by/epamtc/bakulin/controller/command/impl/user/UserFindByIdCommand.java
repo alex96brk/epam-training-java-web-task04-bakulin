@@ -1,10 +1,28 @@
 package by.epamtc.bakulin.controller.command.impl.user;
 
 import by.epamtc.bakulin.controller.command.Command;
+import by.epamtc.bakulin.entity.User;
+import by.epamtc.bakulin.service.UserService;
+import by.epamtc.bakulin.service.factory.TXTServiceFactory;
 
 public class UserFindByIdCommand implements Command {
+
+    private TXTServiceFactory txtServiceFactory = TXTServiceFactory.getInstance();
+    private UserService userService = txtServiceFactory.getUserService();
+
     @Override
     public String execute(String cmdRequest) {
-        return null;
+        String[] target = cmdRequest.split(" \\$");
+        Long id = Long.parseLong(target[1]);
+        String cmdResponse = null;
+
+        try {
+            User user = userService.findUserById(id);
+            cmdResponse = user.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            cmdResponse = "Bad request";
+        }
+        return cmdResponse;
     }
 }
