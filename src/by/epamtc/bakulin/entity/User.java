@@ -4,7 +4,7 @@ package by.epamtc.bakulin.entity;
 import java.io.Serializable;
 
 public class User implements Serializable, Comparable<User> {
-    private Long userId;
+    private Integer userId;
     private String userName;
     private String firstName;
     private String lastName;
@@ -12,7 +12,6 @@ public class User implements Serializable, Comparable<User> {
     private String password;
 
     public User(String userName, String firstName, String lastName, String password) {
-        this.userId = (long) (Math.random() * Long.MAX_VALUE);
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -20,15 +19,13 @@ public class User implements Serializable, Comparable<User> {
         this.password = password;
     }
 
-    public User() {
-        this.userId = (long) (Math.random() * Long.MAX_VALUE);
-    }
+    public User() {}
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

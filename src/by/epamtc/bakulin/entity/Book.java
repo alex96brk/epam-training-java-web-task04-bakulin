@@ -3,27 +3,24 @@ package by.epamtc.bakulin.entity;
 import java.io.Serializable;
 
 public class Book implements Serializable, Comparable<Book> {
-    private Long bookId;
+    private Integer bookId;
     private String bookName;
     private String bookAuthor;
     private String bookGenre;
 
     public Book(String bookName, String bookAuthor, String bookGenre) {
-        this.bookId = (long) (Math.random() * Long.MAX_VALUE);
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
         this.bookGenre = bookGenre;
     }
 
-    public Book() {
-        this.bookId = (long) (Math.random() * Long.MAX_VALUE);
-    }
+    public Book() {    }
 
-    public Long getBookId() {
+    public Integer getBookId() {
         return bookId;
     }
 
-    public void setBookId(Long bookId) {
+    public void setBookId(Integer bookId) {
         this.bookId = bookId;
     }
 
