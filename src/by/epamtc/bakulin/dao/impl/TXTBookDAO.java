@@ -60,7 +60,14 @@ public class TXTBookDAO implements BookDAO, IOEntityCollector<Book> {
 
     @Override
     public Book findByAuthor(String author) {
-        return null;
+        List<Book> books = findAll();
+        Book result = null;
+        for (Book book : books) {
+            if (book.getBookAuthor().equals(author)) {
+                result = book;
+            }
+        }
+        return result;
     }
 
     public List<Book> collectFileData(List<String> fileData) {
