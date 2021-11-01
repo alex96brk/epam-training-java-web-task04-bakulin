@@ -11,7 +11,6 @@ public class Controller {
     }
 
     public String runCommand(String cmdRequest) {
-
         Command command = commandSequence.getCommand(cmdRequest);
         return command.execute();
     }
