@@ -1,2 +1,7 @@
-package by.epamtc.bakulin.controller;public interface Command {
+package by.epamtc.bakulin.controller.command;
+
+public interface Command {
+
+    String execute(String cmdRequest);
+
 }
