@@ -26,6 +26,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addUser(User user) throws ServiceException {
         try {
+            user.setUserId(user.hashCode());
             userDAO.add(user);
         } catch (DAOException e) {
             throw new ServiceException(e);
@@ -33,7 +34,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserById(Long id) throws ServiceException {
+    public User findUserById(Integer id) throws ServiceException {
         User user = null;
         try {
             user = userDAO.findById(id);
@@ -75,7 +76,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(Long id) throws ServiceException {
+    public void deleteUser(Integer id) throws ServiceException {
         try {
             userDAO.delete(id);
         } catch (DAOException e) {

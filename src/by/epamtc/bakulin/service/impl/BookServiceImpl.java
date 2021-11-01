@@ -26,6 +26,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public void addBook(Book book) throws ServiceException {
         try {
+            book.setBookId(book.hashCode());
             bookDAO.add(book);
         } catch (DAOException e) {
             throw new ServiceException(e);
@@ -33,7 +34,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book findBookById(Long id) throws ServiceException {
+    public Book findBookById(Integer id) throws ServiceException {
         Book book = null;
         try {
             book = bookDAO.findById(id);
@@ -75,7 +76,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void deleteBook(Long id) throws ServiceException {
+    public void deleteBook(Integer id) throws ServiceException {
         try {
             bookDAO.delete(id);
         } catch (DAOException e) {

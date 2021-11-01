@@ -11,7 +11,7 @@ public interface UserService {
 
     void addUser(User user) throws ServiceException;
 
-    User findUserById(Long id) throws ServiceException;
+    User findUserById(Integer id) throws ServiceException;
 
     User findUserByName(String userName) throws ServiceException;
 
@@ -19,7 +19,7 @@ public interface UserService {
 
     void updateUser(User user) throws ServiceException;
 
-    void deleteUser(Long id) throws ServiceException;
+    void deleteUser(Integer id) throws ServiceException;
 
     void setUserDAO(UserDAO userDAO);
 

@@ -10,7 +10,7 @@ public interface BookService {
 
     void addBook(Book book) throws ServiceException;
 
-    Book findBookById(Long id) throws ServiceException;
+    Book findBookById(Integer id) throws ServiceException;
 
     Book findBookByAuthor(String bookAuthor) throws ServiceException;
 
@@ -18,7 +18,7 @@ public interface BookService {
 
     void updateBook(Book book) throws ServiceException;
 
-    void deleteBook(Long id) throws ServiceException;
+    void deleteBook(Integer id) throws ServiceException;
 
     void setBookDAO(BookDAO bookDAO);
 
