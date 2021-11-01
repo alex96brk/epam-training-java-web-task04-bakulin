@@ -15,5 +15,6 @@ public enum CmdId {
     BOOK_UPDATE,
     BOOK_DELETE,
 
-    BAD_REQUEST
+    BAD_REQUEST,
+    NOT_FOUND
 }
