@@ -56,12 +56,20 @@ public class TXTUserDAO implements UserDAO, IOEntityCollector<User> {
 
     @Override
     public void delete(Long id) {
+        System.out.println("find by id: "+findById(id).toString());
         ioConnector.deleteDataLine(USERS_SOURCE_PATH, USERS_CACHE_PATH, findById(id).toString());
     }
 
     @Override
     public User findByName(String userName) {
-        return null;
+        List<User> users = findAll();
+        User result = null;
+        for (User user : users) {
+            if (user.getUserName().equals(userName)) {
+                result = user;
+            }
+        }
+        return result;
     }
 
     @Override
@@ -76,19 +84,17 @@ public class TXTUserDAO implements UserDAO, IOEntityCollector<User> {
 
     @Override
     public String[] parseStringLine(String line) {
-        String[] strings = line.replaceAll("User", "")
-                .replaceAll("=", "")
+        String[] strings = line.replace("User{", "")
+                .replaceAll("userId=", "")
+                .replaceAll("userName=", "")
+                .replaceAll("lastName=", "")
+                .replaceAll("firstName=", "")
+                .replaceAll("userRole=", "")
+                .replaceAll("password=", "")
                 .replaceAll("'", "")
-                .replaceAll("\\{", "")
-                .replaceAll(" ", "")
                 .replaceAll("\\}", "")
-                .replaceAll("userId", "")
-                .replaceAll("userName", "")
-                .replaceAll("lastName", "")
-                .replaceAll("firstName", "")
-                .replaceAll("userRole", "")
-                .replaceAll("password", "")
-                .split(",");
+                .split(", ");
+
         return strings;
     }
 
