@@ -36,7 +36,7 @@ public class BookServiceImpl implements BookService {
     public Book findBookById(Long id) throws ServiceException {
         Book book = null;
         try {
-            bookDAO.findById(id);
+            book = bookDAO.findById(id);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
@@ -47,7 +47,7 @@ public class BookServiceImpl implements BookService {
     public Book findBookByAuthor(String bookAuthor) throws ServiceException {
         Book book = null;
         try {
-            bookDAO.findByAuthor(bookAuthor);
+            book = bookDAO.findByAuthor(bookAuthor);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
