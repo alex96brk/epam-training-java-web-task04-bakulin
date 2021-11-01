@@ -38,7 +38,7 @@ public class TXTUserDAOTest {
 
     @Test
     public void test4() throws DAOException {
-        dao.delete(179857332653907968L);
+        dao.delete(5280086722211703808L);
     }
 
 }
