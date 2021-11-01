@@ -30,7 +30,7 @@ public class TXTUserDAOTest {
 
     @Test
     public void test3() throws DAOException {
-        User user = dao.findById(179857332653907968L);
+        User user = dao.findById(179857332);
         user.setUserName("Alexander");
         user.setUserRole(Role.ADMIN);
         dao.update(user);
@@ -38,7 +38,7 @@ public class TXTUserDAOTest {
 
     @Test
     public void test4() throws DAOException {
-        dao.delete(5280086722211703808L);
+        dao.delete(528008672);
     }
 
 }

@@ -29,14 +29,14 @@ public class TXTBookDAOTest {
 
     @Test
     public void test3() throws DAOException {
-        Book book = dao.findById(7634399147678983168L);
+        Book book = dao.findById(76343991);
         book.setBookName("Quiet Don");
         dao.update(book);
     }
 
     @Test
     public void test4() throws DAOException {
-        dao.delete(3269654306464640000L);
+        dao.delete(326965430);
     }
 
 }
