@@ -1,7 +1,7 @@
-User{ userId = 6820782202244221952, userName = 'user4ik', lastName = 'Ivanov', firstName = 'Viktor', userRole = 'USER', password = '321Pass'}
-User{ userId = 6842465554679017472, userName = 'alexRaven', lastName = 'Raven', firstName = 'Alex', userRole = 'USER', password = 'lkjla3585'}
-User{ userId = 6268751212487431168, userName = 'annPerova', lastName = 'Petrova', firstName = 'Ann', userRole = 'ADMIN', password = 'sdgsl9023'}
-User{ userId = 4045569050689157120, userName = 'usirsgs', lastName = 'Bann', firstName = 'Alf', userRole = 'USER', password = 'lahg452'}
-User{ userId = 2905200391843744768, userName = 'valeryProchor', lastName = 'Prochorov', firstName = 'Valery', userRole = 'USER', password = '92lh53'}
-User{ userId = 9043868949340740608, userName = 'anderHolod', lastName = 'Holodny', firstName = 'Andrey', userRole = 'USER', password = 'sglhs09'}
-User{ userId = 3107024621590589440, userName = 'tamaVoron', lastName = 'Voronova', firstName = 'Tamara', userRole = 'USER', password = 'plgir354'}
+User{userId=933424339954254848, userName='user4ik', firstName='Viktor', lastName='Ivanov', userRole=USER, password='321Pass'}
+User{userId=823909558315114496, userName='alexRaven', firstName='Alex', lastName='Raven', userRole=USER, password='lkjla3585'}
+User{userId=1519990117023596544, userName='annPerova', firstName='Ann', lastName='Petrova', userRole=ADMIN, password='sdgsl9023'}
+User{userId=5333580729289848832, userName='usirsgs', firstName='Alf', lastName='Bann', userRole=USER, password='lahg452'}
+User{userId=7790490488896381952, userName='valeryProchor', firstName='Valery', lastName='Prochorov', userRole=USER, password='92lh53'}
+User{userId=3582690797272538112, userName='anderHolod', firstName='Andrey', lastName='Holodny', userRole=USER, password='sglhs09'}
+User{userId=5061622843896736768, userName='tamaVoron', firstName='Tamara', lastName='Voronova', userRole=USER, password='plgir354'}
