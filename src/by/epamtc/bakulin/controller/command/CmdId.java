@@ -1,6 +1,6 @@
 package by.epamtc.bakulin.controller.command;
 
-public enum CommandValue {
+public enum CmdId {
     USER_ADD,
     USER_FIND_BY_ID,
     USER_FIND_BY_UNAME,
@@ -13,5 +13,7 @@ public enum CommandValue {
     BOOK_FIND_BY_AUTHOR,
     BOOK_FIND_ALL,
     BOOK_UPDATE,
-    BOOK_DELETE
+    BOOK_DELETE,
+
+    BAD_REQUEST
 }
