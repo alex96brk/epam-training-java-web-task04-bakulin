@@ -9,8 +9,6 @@ import by.epamtc.bakulin.service.impl.UserServiceImpl;
 public class TXTServiceFactory {
 
     private static final TXTServiceFactory INSTANCE = new TXTServiceFactory();
-    private UserService userService;
-    private BookService bookService;
 
     private TXTServiceFactory() {}
 
