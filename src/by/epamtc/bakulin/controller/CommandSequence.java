@@ -34,13 +34,14 @@ public class CommandSequence {
     public CommandSequence() {}
 
     public Command getCommand(String cmdRequest) {
-        String[] target = cmdRequest.split(" \\$");
+        String[] requestParameters = cmdRequest.split(" \\$");
         Command command = null;
 
         if (cmdRequest != null) {
             try {
-                CmdId cmdId = CmdId.valueOf(target[0].toUpperCase());
+                CmdId cmdId = CmdId.valueOf(requestParameters[0].toUpperCase());
                 command = sequence.get(cmdId);
+                command.setRequestParameters(requestParameters);
             } catch (IllegalArgumentException exception) {
                 command = sequence.get(BAD_REQUEST);
             }
