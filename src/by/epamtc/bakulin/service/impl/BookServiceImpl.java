@@ -16,7 +16,8 @@ public class BookServiceImpl implements BookService {
         this.bookDAO = bookDAO;
     }
 
-    public BookServiceImpl() {}
+    public BookServiceImpl() {
+    }
 
     @Override
     public void setBookDAO(BookDAO bookDAO) {
@@ -26,6 +27,9 @@ public class BookServiceImpl implements BookService {
     @Override
     public void addBook(Book book) throws ServiceException {
         try {
+            if (book == null) {
+                throw new ServiceException("Book value can not be null.");
+            }
             book.setBookId(book.hashCode());
             bookDAO.add(book);
         } catch (DAOException e) {
@@ -37,6 +41,9 @@ public class BookServiceImpl implements BookService {
     public Book findBookById(Integer id) throws ServiceException {
         Book book = null;
         try {
+            if (id == null || id < 0) {
+                throw new ServiceException("Parameter - id, can not be null or less then 0; id = " + id);
+            }
             book = bookDAO.findById(id);
         } catch (DAOException e) {
             throw new ServiceException(e);
@@ -48,6 +55,9 @@ public class BookServiceImpl implements BookService {
     public Book findBookByAuthor(String bookAuthor) throws ServiceException {
         Book book = null;
         try {
+            if (bookAuthor == null) {
+                throw new ServiceException("Parameter - bookAuthor, can not be null");
+            }
             book = bookDAO.findByAuthor(bookAuthor);
         } catch (DAOException e) {
             throw new ServiceException(e);
@@ -69,6 +79,9 @@ public class BookServiceImpl implements BookService {
     @Override
     public void updateBook(Book book) throws ServiceException {
         try {
+            if (book == null) {
+                throw new ServiceException("Book value can not be null.");
+            }
             bookDAO.update(book);
         } catch (DAOException e) {
             throw new ServiceException(e);
@@ -78,6 +91,9 @@ public class BookServiceImpl implements BookService {
     @Override
     public void deleteBook(Integer id) throws ServiceException {
         try {
+            if (id == null || id < 0) {
+                throw new ServiceException("Parameter - id, can not be null or less then 0; id = " + id);
+            }
             bookDAO.delete(id);
         } catch (DAOException e) {
             throw new ServiceException(e);
