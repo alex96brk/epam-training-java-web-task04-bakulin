@@ -1,6 +1,5 @@
 package by.epamtc.bakulin.controller.command.impl.user.validator;
 
-import by.epamtc.bakulin.entity.Role;
 import by.epamtc.bakulin.service.exception.ServiceException;
 
 public class UserValidator {

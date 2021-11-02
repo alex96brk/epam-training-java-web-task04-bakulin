@@ -30,4 +30,10 @@ public class ServiceFactoryTest {
             System.out.println(book);
         }
     }
+
+    @Test
+    public void test3() throws ServiceException {
+        Book book = bookService.findBookById(-1);
+        System.out.println(book);
+    }
 }
