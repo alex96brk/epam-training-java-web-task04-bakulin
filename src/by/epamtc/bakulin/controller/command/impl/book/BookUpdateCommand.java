@@ -1,8 +1,10 @@
 package by.epamtc.bakulin.controller.command.impl.book;
 
 import by.epamtc.bakulin.controller.command.Command;
+import by.epamtc.bakulin.controller.command.impl.book.validator.BookValidator;
 import by.epamtc.bakulin.entity.Book;
 import by.epamtc.bakulin.service.BookService;
+import by.epamtc.bakulin.service.exception.ServiceException;
 import by.epamtc.bakulin.service.factory.TXTServiceFactory;
 
 public class BookUpdateCommand implements Command {
@@ -19,14 +21,15 @@ public class BookUpdateCommand implements Command {
         String bookGenre = requestParameters[4];
         String cmdResponse = null;
         try {
+            BookValidator.validateBookProperties(bookId, bookName, bookAuthor, bookGenre);
             Book book = bookService.findBookById(bookId);
             book.setBookName(bookName);
             book.setBookAuthor(bookAuthor);
             book.setBookGenre(bookGenre);
             bookService.updateBook(book);
             cmdResponse = book.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (ServiceException e) {
+            cmdResponse = "Bad request";
         }
         return cmdResponse;
     }

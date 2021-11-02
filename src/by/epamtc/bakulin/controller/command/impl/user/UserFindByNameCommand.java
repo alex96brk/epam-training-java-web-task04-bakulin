@@ -1,6 +1,7 @@
 package by.epamtc.bakulin.controller.command.impl.user;
 
 import by.epamtc.bakulin.controller.command.Command;
+import by.epamtc.bakulin.controller.command.impl.user.validator.UserValidator;
 import by.epamtc.bakulin.entity.User;
 import by.epamtc.bakulin.service.UserService;
 import by.epamtc.bakulin.service.factory.TXTServiceFactory;
@@ -16,6 +17,7 @@ public class UserFindByNameCommand implements Command {
         String userName = requestParameters[1];
         String cmdResponse = null;
         try {
+            UserValidator.validateUserName(userName);
             User user = userService.findUserByName(userName);
             cmdResponse = user.toString();
         } catch (Exception e) {

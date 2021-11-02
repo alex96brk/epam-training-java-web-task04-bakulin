@@ -21,7 +21,6 @@ public class BookFindAllCommand implements Command {
             List<Book> books =  bookService.findAllBooks();
             cmdResponse = books.toString();
         } catch (ServiceException e) {
-            e.printStackTrace();
             cmdResponse = "Bad request";
         }
         return cmdResponse;

@@ -1,6 +1,7 @@
 package by.epamtc.bakulin.controller.command.impl.user;
 
 import by.epamtc.bakulin.controller.command.Command;
+import by.epamtc.bakulin.controller.command.impl.user.validator.UserValidator;
 import by.epamtc.bakulin.entity.Role;
 import by.epamtc.bakulin.entity.User;
 import by.epamtc.bakulin.service.UserService;
@@ -22,6 +23,7 @@ public class UserUpdateCommand implements Command {
         String roleStr = requestParameters[6];
         String cmdResponse = null;
         try {
+            UserValidator.validateUserProperties(userId, userName, firstName, lastName, password, roleStr);
             User user = userService.findUserById(userId);
             user.setUserName(userName);
             user.setFirstName(firstName);
