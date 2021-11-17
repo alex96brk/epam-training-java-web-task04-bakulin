@@ -7,9 +7,7 @@ import java.util.Properties;
 
 public class IOConnectorTXT {
 
-    private static Properties PROPERTIES;
-
-    public IOConnectorTXT() {}
+    private static final Properties PROPERTIES;
 
     public static Properties getProperties() {
         return PROPERTIES;

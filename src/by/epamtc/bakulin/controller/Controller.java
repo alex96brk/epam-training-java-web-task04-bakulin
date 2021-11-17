@@ -1,6 +1,7 @@
 package by.epamtc.bakulin.controller;
 
 import by.epamtc.bakulin.controller.command.Command;
+import by.epamtc.bakulin.controller.command.impl.app.ExitCommand;
 import by.epamtc.bakulin.controller.command.impl.book.BookFindAllCommand;
 import by.epamtc.bakulin.controller.command.impl.book.BookFindByAuthorCommand;
 import by.epamtc.bakulin.controller.command.impl.book.BookFindByIdCommand;
@@ -29,7 +30,8 @@ public class Controller {
                     command instanceof UserFindByNameCommand ||
                     command instanceof BookFindAllCommand ||
                     command instanceof BookFindByIdCommand ||
-                    command instanceof BookFindByAuthorCommand) {
+                    command instanceof BookFindByAuthorCommand ||
+                    command instanceof ExitCommand) {
                 result = command.execute();
             } else {
                 result = "You do not enough authorities to change data in this repository";

@@ -4,6 +4,7 @@ import by.epamtc.bakulin.controller.command.Command;
 import by.epamtc.bakulin.controller.command.impl.book.validator.BookValidator;
 import by.epamtc.bakulin.entity.User;
 import by.epamtc.bakulin.service.UserService;
+import by.epamtc.bakulin.service.exception.ServiceException;
 import by.epamtc.bakulin.service.factory.TXTServiceFactory;
 
 public class UserFindByIdCommand implements Command {
@@ -21,8 +22,7 @@ public class UserFindByIdCommand implements Command {
             BookValidator.validateId(id);
             User user = userService.findUserById(id);
             cmdResponse = user.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (ServiceException e) {
             cmdResponse = "Bad request";
         }
         return cmdResponse;

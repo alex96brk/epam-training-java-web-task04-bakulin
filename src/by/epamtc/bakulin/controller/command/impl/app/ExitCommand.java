@@ -6,7 +6,7 @@ import by.epamtc.bakulin.controller.command.Command;
 public class ExitCommand implements Command {
     @Override
     public String execute() {
-        return CmdId.EXIT.name();
+        return CmdId.EXIT;
     }
 
     @Override
