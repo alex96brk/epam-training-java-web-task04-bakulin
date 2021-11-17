@@ -2,36 +2,25 @@ package by.epamtc.bakulin.dao.impl;
 
 import by.epamtc.bakulin.dao.BookDAO;
 import by.epamtc.bakulin.dao.exception.general.IncorrectStateException;
-import by.epamtc.bakulin.entity.User;
 import by.epamtc.bakulin.io.IOEntityCollector;
-import by.epamtc.bakulin.io.IOConnector;
 import by.epamtc.bakulin.entity.Book;
+import by.epamtc.bakulin.io.IOConnectorTXT;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TXTBookDAO implements BookDAO, IOEntityCollector<Book> {
+public class TXTBookDAO extends IOConnectorTXT implements BookDAO, IOEntityCollector<Book> {
 
     private static final String BOOKS_SOURCE_PATH = "books.txt.source.path";
     private static final String BOOKS_CACHE_PATH = "books.txt.source.cache.path";
 
-    private IOConnector ioConnector;
-
     public TXTBookDAO() {
-    }
-
-    public TXTBookDAO(IOConnector ioConnector) {
-        this.ioConnector = ioConnector;
-    }
-
-    public void setIoConnector(IOConnector ioConnector) {
-        this.ioConnector = ioConnector;
     }
 
     @Override
     public void add(Book entity) throws IncorrectStateException {
         entityNullCheck(entity);
-        ioConnector.writeDataLine(BOOKS_SOURCE_PATH, entity.toString() + "\n");
+        writeDataLine(BOOKS_SOURCE_PATH, entity + "\n");
     }
 
     @Override
@@ -49,19 +38,19 @@ public class TXTBookDAO implements BookDAO, IOEntityCollector<Book> {
 
     @Override
     public List<Book> findAll() {
-        return collectFileData(ioConnector.readDocumentData(BOOKS_SOURCE_PATH));
+        return collectFileData(readDocumentData(BOOKS_SOURCE_PATH));
     }
 
     @Override
     public void update(Book entity) throws IncorrectStateException {
         entityNullCheck(entity);
-        ioConnector.updateDataLine(BOOKS_SOURCE_PATH, BOOKS_CACHE_PATH, findById(entity.getBookId()).toString(), entity.toString());
+        updateDataLine(BOOKS_SOURCE_PATH, BOOKS_CACHE_PATH, findById(entity.getBookId()).toString(), entity.toString());
     }
 
     @Override
     public void delete(Integer id) throws IncorrectStateException {
         idNullCheck(id);
-        ioConnector.deleteDataLine(BOOKS_SOURCE_PATH, BOOKS_CACHE_PATH, findById(id).toString());
+        deleteDataLine(BOOKS_SOURCE_PATH, BOOKS_CACHE_PATH, findById(id).toString());
     }
 
     @Override

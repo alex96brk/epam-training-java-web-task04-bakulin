@@ -3,36 +3,26 @@ package by.epamtc.bakulin.dao.impl;
 import by.epamtc.bakulin.dao.UserDAO;
 import by.epamtc.bakulin.dao.exception.general.IncorrectStateException;
 import by.epamtc.bakulin.io.IOEntityCollector;
-import by.epamtc.bakulin.io.IOConnector;
 import by.epamtc.bakulin.entity.User;
+import by.epamtc.bakulin.io.IOConnectorTXT;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static by.epamtc.bakulin.entity.Role.*;
 
-public class TXTUserDAO implements UserDAO, IOEntityCollector<User> {
+public class TXTUserDAO extends IOConnectorTXT implements UserDAO, IOEntityCollector<User> {
 
     private static final String USERS_SOURCE_PATH = "users.txt.source.path";
     private static final String USERS_CACHE_PATH = "users.txt.source.cache.path";
 
-    private IOConnector ioConnector;
-
     public TXTUserDAO() {
-    }
-
-    public TXTUserDAO(IOConnector ioConnector) {
-        this.ioConnector = ioConnector;
-    }
-
-    public void setIoConnector(IOConnector ioConnector) {
-        this.ioConnector = ioConnector;
     }
 
     @Override
     public void add(User entity) throws IncorrectStateException {
         entityNullCheck(entity);
-        ioConnector.writeDataLine(USERS_SOURCE_PATH, entity.toString() + "\n");
+        writeDataLine(USERS_SOURCE_PATH, entity + "\n");
     }
 
     @Override
@@ -50,19 +40,19 @@ public class TXTUserDAO implements UserDAO, IOEntityCollector<User> {
 
     @Override
     public List<User> findAll() {
-        return collectFileData(ioConnector.readDocumentData(USERS_SOURCE_PATH));
+        return collectFileData(readDocumentData(USERS_SOURCE_PATH));
     }
 
     @Override
     public void update(User entity) throws IncorrectStateException {
         entityNullCheck(entity);
-        ioConnector.updateDataLine(USERS_SOURCE_PATH, USERS_CACHE_PATH, findById(entity.getUserId()).toString(), entity.toString());
+        updateDataLine(USERS_SOURCE_PATH, USERS_CACHE_PATH, findById(entity.getUserId()).toString(), entity.toString());
     }
 
     @Override
     public void delete(Integer id) throws IncorrectStateException {
         idNullCheck(id);
-        ioConnector.deleteDataLine(USERS_SOURCE_PATH, USERS_CACHE_PATH, findById(id).toString());
+       deleteDataLine(USERS_SOURCE_PATH, USERS_CACHE_PATH, findById(id).toString());
     }
 
     @Override

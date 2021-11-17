@@ -3,7 +3,6 @@ package by.epamtc.bakulin.test;
 import by.epamtc.bakulin.dao.UserDAO;
 import by.epamtc.bakulin.dao.exception.DAOException;
 import by.epamtc.bakulin.dao.impl.TXTUserDAO;
-import by.epamtc.bakulin.io.impl.IOConnectorTXT;
 import by.epamtc.bakulin.entity.Role;
 import by.epamtc.bakulin.entity.User;
 import org.junit.Test;
@@ -12,7 +11,7 @@ import java.util.List;
 
 public class TXTUserDAOTest {
 
-    UserDAO dao = new TXTUserDAO(new IOConnectorTXT());
+    UserDAO dao = new TXTUserDAO();
 
     @Test
     public void test1() throws DAOException {

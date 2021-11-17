@@ -1,13 +1,11 @@
-package by.epamtc.bakulin.io.impl;
-
-import by.epamtc.bakulin.io.IOConnector;
+package by.epamtc.bakulin.io;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class IOConnectorTXT implements IOConnector {
+public class IOConnectorTXT {
 
     private static Properties PROPERTIES;
 
@@ -26,7 +24,7 @@ public class IOConnectorTXT implements IOConnector {
         }
     }
 
-    public List<String> readDocumentData(String propertyName) {
+    public static List<String> readDocumentData(String propertyName) {
         String path = PROPERTIES.getProperty(propertyName);
         List<String> data = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(path))) {
@@ -45,13 +43,11 @@ public class IOConnectorTXT implements IOConnector {
         return data;
     }
 
-    @Override
-    public void writeDataLine(String sourceConnectionProperty, String stringData) {
+    public static void writeDataLine(String sourceConnectionProperty, String stringData) {
         writeDataLine(sourceConnectionProperty, stringData, true);
     }
 
-    @Override
-    public void writeDataLine(String sourceConnectionProperty, String data, boolean isAppend) {
+    public static void writeDataLine(String sourceConnectionProperty, String data, boolean isAppend) {
         String path = PROPERTIES.getProperty(sourceConnectionProperty);
         File file = new File(path);
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, isAppend))) {
@@ -64,13 +60,11 @@ public class IOConnectorTXT implements IOConnector {
         }
     }
 
-    @Override
-    public void deleteDataLine(String sourceConnectionProperty, String cacheConnectionProperty, String dataToDelete) {
+    public static void deleteDataLine(String sourceConnectionProperty, String cacheConnectionProperty, String dataToDelete) {
         updateDataLine(sourceConnectionProperty, cacheConnectionProperty, dataToDelete, "");
     }
 
-    @Override
-    public void updateDataLine(String sourceConnectionProperty, String cacheConnectionProperty, String dataToUpdate, String newDataLine) {
+    public static void updateDataLine(String sourceConnectionProperty, String cacheConnectionProperty, String dataToUpdate, String newDataLine) {
         String source_path = PROPERTIES.getProperty(sourceConnectionProperty);
         String cache_path = PROPERTIES.getProperty(cacheConnectionProperty);
 
