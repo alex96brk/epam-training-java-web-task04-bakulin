@@ -2,14 +2,14 @@ package by.epamtc.bakulin.dao.impl;
 
 import by.epamtc.bakulin.dao.BookDAO;
 import by.epamtc.bakulin.dao.exception.general.IncorrectStateException;
-import by.epamtc.bakulin.io.IOEntityCollector;
+import by.epamtc.bakulin.io.IOEntityBuilder;
 import by.epamtc.bakulin.entity.Book;
 import by.epamtc.bakulin.io.IOConnectorTXT;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TXTBookDAO extends IOConnectorTXT implements BookDAO, IOEntityCollector<Book> {
+public class TXTBookDAO extends IOConnectorTXT implements BookDAO, IOEntityBuilder<Book> {
 
     private static final String BOOKS_SOURCE_PATH = "books.txt.source.path";
     private static final String BOOKS_CACHE_PATH = "books.txt.source.cache.path";
@@ -38,7 +38,7 @@ public class TXTBookDAO extends IOConnectorTXT implements BookDAO, IOEntityColle
 
     @Override
     public List<Book> findAll() {
-        return collectFileData(readDocumentData(BOOKS_SOURCE_PATH));
+        return parseFileData(readDocumentData(BOOKS_SOURCE_PATH));
     }
 
     @Override
@@ -66,7 +66,7 @@ public class TXTBookDAO extends IOConnectorTXT implements BookDAO, IOEntityColle
         return result;
     }
 
-    public List<Book> collectFileData(List<String> fileData) {
+    public List<Book> parseFileData(List<String> fileData) {
         List<Book> books = new ArrayList<>();
         for (int i = 0; i < fileData.size(); i++) {
             Book book = buildEntity(parseStringLine(fileData.get(i)));

@@ -21,7 +21,7 @@ public class BookDeleteCommand implements Command {
             bookService.deleteBook(id);
             cmdResponse = String.format("Deleted successfully; bookId = %d", id);
         } catch (ServiceException e) {
-            cmdResponse = "Bad request";
+            cmdResponse = e.getMessage();
         }
         return cmdResponse;
     }

@@ -28,7 +28,11 @@ public class BookServiceImpl implements BookService {
     @Override
     public void addBook(Book book) throws ServiceException {
         try {
-            book.setBookId(book.hashCode());
+            int hash = book.hashCode();
+            if (hash < 0) {
+                hash = hash * (-1);
+            }
+            book.setBookId(hash);
             bookDAO.add(book);
         } catch (DAOException e) {
             throw new ServiceException(e);

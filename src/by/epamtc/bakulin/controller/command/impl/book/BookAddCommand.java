@@ -5,6 +5,7 @@ import by.epamtc.bakulin.controller.command.impl.book.validator.BookValidator;
 import by.epamtc.bakulin.entity.Book;
 import by.epamtc.bakulin.service.BookService;
 import by.epamtc.bakulin.service.exception.ServiceException;
+import by.epamtc.bakulin.service.exception.general.EntryAlreadyExistsException;
 import by.epamtc.bakulin.service.factory.TXTServiceFactory;
 
 public class BookAddCommand implements Command {
@@ -21,12 +22,17 @@ public class BookAddCommand implements Command {
         String cmdResponse = null;
         try {
             BookValidator.validateBookProperties(bookName, bookAuthor, bookGenre);
+            BookValidator.validateUniqueBookName(bookName, bookService.findAllBooks());
             Book book = new Book(bookName, bookAuthor, bookGenre);
             bookService.addBook(book);
             cmdResponse = book.toString();
-        } catch (ServiceException e) {
+        } catch (EntryAlreadyExistsException e) {
+            cmdResponse = e.getMessage();
+        }
+        catch (ServiceException e) {
             cmdResponse = "Bad request";
         }
+
         return cmdResponse;
     }
 

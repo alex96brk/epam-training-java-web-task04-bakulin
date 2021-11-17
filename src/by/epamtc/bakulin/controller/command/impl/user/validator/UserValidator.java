@@ -1,8 +1,13 @@
 package by.epamtc.bakulin.controller.command.impl.user.validator;
 
+import by.epamtc.bakulin.entity.User;
 import by.epamtc.bakulin.service.exception.ServiceException;
+import by.epamtc.bakulin.service.exception.general.EntryAlreadyExistsException;
+
+import java.util.List;
 
 public class UserValidator {
+
     public static void validateUserProperties(Integer id, String userName, String firstName, String lastName, String password, String userRole) throws ServiceException {
         validateId(id);
         validateUserProperties(userName, firstName, lastName, password);
@@ -25,6 +30,14 @@ public class UserValidator {
     public static void validateUserName(String userName) throws ServiceException {
         if (userName == null) {
             throw new ServiceException("User Name can not be null");
+        }
+    }
+
+    public static void validateUniqueUserName(String userName, List<User> users) throws EntryAlreadyExistsException {
+        for (User user : users) {
+            if (user.getUserName().equals(userName)) {
+                throw new EntryAlreadyExistsException("UserName already exists. UserName: " + userName);
+            }
         }
     }
 

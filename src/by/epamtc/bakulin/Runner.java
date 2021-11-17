@@ -37,15 +37,14 @@ public class Runner {
 
             "ADMIN requests:\n" +
             "\tbook_add $bookName $bookAuthor $bookGenre - to add book into the library(ADMIN)\n" +
-            "\tbook_update $id $bookName $bookAuthor $bookGenre - to update book into the library(ADMIN)\n" +
+            "\tbook_update $id $currentBookName $newBookName $bookAuthor $bookGenre - to update book into the library(ADMIN)\n" +
             "\tbook_delete $id - to delete book from the library(ADMIN)\n" +
             "\tuser_add $userName $firstName $lastName $password - to add book into the library(ADMIN))\n" +
-            "\tuser_update $id $userName $firstName $lastName $password $role - to add book into the library(ADMIN)\n" +
+            "\tuser_update $id $currentUserName $newUserName $firstName $lastName $password $role - to add book into the library(ADMIN)\n" +
             "\tuser_delete $id - to delete user from the library(ADMIN)\n" +
             "";
 
     public static void main(String[] args) {
-
         doAuth(userSession);
 
         printInstructions();
@@ -57,9 +56,9 @@ public class Runner {
         printConsoleMessage("Library APP started.\n");
         do {
             try {
-                System.out.println("Please enter your Username:");
+                printConsoleMessage("Please enter your Username:");
                 String userName = sc.nextLine();
-                System.out.println("Please enter your Password:");
+                printConsoleMessage("Please enter your Password:");
                 String password = sc.nextLine();
 
                 userSession.authenticate(userName, password);
@@ -67,17 +66,17 @@ public class Runner {
                     throw new ServiceException("Incorrect credentials. Try again");
                 }
             } catch (ServiceException e) {
-                System.out.println(e.getMessage());
+                printConsoleMessage(e.getMessage());
             }
         } while (userSession.getAuthority() == null);
     }
 
     private static void printInstructions() {
         if (userSession.getAuthority().equalsIgnoreCase("ADMIN")) {
-            System.out.println(adminCmd);
+            printConsoleMessage(adminCmd);
         }
         if (userSession.getAuthority().equalsIgnoreCase("USER")) {
-            System.out.println(userCmd);
+            printConsoleMessage(userCmd);
         }
     }
 
@@ -88,10 +87,16 @@ public class Runner {
                 try {
                     request = sc.nextLine();
                     String response = controller.runCommand(request, userSession.getAuthority());
-                    System.out.println(response);
+                    printConsoleMessage(response);
                 }
                 catch (NullPointerException e) {
-                    System.out.println("Not Found.");
+                    printConsoleMessage("Not Found.");
+                }
+                catch (NumberFormatException e) {
+                    printConsoleMessage("Incorrect id");
+                }
+                catch (IndexOutOfBoundsException e) {
+                    printConsoleMessage("Incorrect params sequence");
                 }
             } while (!request.equalsIgnoreCase(CmdId.EXIT));
         }

@@ -21,8 +21,7 @@ public class BookFindByAuthorCommand implements Command {
             Book book = bookService.findBookByAuthor(bookAuthor);
             cmdResponse = book.toString();
         } catch (Exception e) {
-            e.printStackTrace();
-            cmdResponse = "Bad request";
+            cmdResponse = e.getMessage();
         }
         return cmdResponse;
     }

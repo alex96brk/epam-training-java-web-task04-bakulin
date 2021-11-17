@@ -2,6 +2,7 @@ package by.epamtc.bakulin.controller;
 
 import by.epamtc.bakulin.controller.command.Command;
 import by.epamtc.bakulin.controller.command.CmdId;
+import by.epamtc.bakulin.controller.command.exception.CommandAlreadyExistsException;
 import by.epamtc.bakulin.controller.command.impl.app.BadRequestCommand;
 import by.epamtc.bakulin.controller.command.impl.app.ExitCommand;
 import by.epamtc.bakulin.controller.command.impl.book.*;
@@ -52,5 +53,10 @@ public class CommandSequence {
         return command;
     }
 
-
+    public void addCommand(String cmdId, Command command) throws CommandAlreadyExistsException {
+        if (sequence.containsValue(command)) {
+            throw new CommandAlreadyExistsException("Command already exists. Check command sequence.");
+        }
+        sequence.put(cmdId, command);
+    }
 }

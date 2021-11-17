@@ -5,6 +5,7 @@ import by.epamtc.bakulin.controller.command.impl.book.validator.BookValidator;
 import by.epamtc.bakulin.entity.Book;
 import by.epamtc.bakulin.service.BookService;
 import by.epamtc.bakulin.service.exception.ServiceException;
+import by.epamtc.bakulin.service.exception.general.EntryAlreadyExistsException;
 import by.epamtc.bakulin.service.factory.TXTServiceFactory;
 
 public class BookUpdateCommand implements Command {
@@ -16,20 +17,27 @@ public class BookUpdateCommand implements Command {
     @Override
     public String execute() {
         Integer bookId = Integer.parseInt(requestParameters[1]);
-        String bookName = requestParameters[2];
-        String bookAuthor = requestParameters[3];
-        String bookGenre = requestParameters[4];
+        String currentBookName = requestParameters[2];
+        String newBookName = requestParameters[3];
+        String bookAuthor = requestParameters[4];
+        String bookGenre = requestParameters[5];
         String cmdResponse = null;
         try {
-            BookValidator.validateBookProperties(bookId, bookName, bookAuthor, bookGenre);
+            BookValidator.validateBookProperties(bookId, currentBookName, bookAuthor, bookGenre);
             Book book = bookService.findBookById(bookId);
-            book.setBookName(bookName);
+            if (!newBookName.equals(currentBookName)) {
+                BookValidator.validateUniqueBookName(newBookName, bookService.findAllBooks());
+                book.setBookName(newBookName);
+            }
             book.setBookAuthor(bookAuthor);
             book.setBookGenre(bookGenre);
             bookService.updateBook(book);
             cmdResponse = book.toString();
-        } catch (ServiceException e) {
-            cmdResponse = "Bad request";
+        }  catch (EntryAlreadyExistsException e) {
+            cmdResponse = e.getMessage();
+        }
+        catch (ServiceException e) {
+            cmdResponse = e.getMessage();
         }
         return cmdResponse;
     }

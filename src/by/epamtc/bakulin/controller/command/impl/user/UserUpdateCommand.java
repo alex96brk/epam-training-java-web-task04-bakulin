@@ -5,27 +5,32 @@ import by.epamtc.bakulin.controller.command.impl.user.validator.UserValidator;
 import by.epamtc.bakulin.entity.Role;
 import by.epamtc.bakulin.entity.User;
 import by.epamtc.bakulin.service.UserService;
+import by.epamtc.bakulin.service.exception.ServiceException;
+import by.epamtc.bakulin.service.exception.general.EntryAlreadyExistsException;
 import by.epamtc.bakulin.service.factory.TXTServiceFactory;
 
 public class UserUpdateCommand implements Command {
 
-    private TXTServiceFactory txtServiceFactory = TXTServiceFactory.getInstance();
-    private UserService userService = txtServiceFactory.getUserService();
+    private UserService userService = TXTServiceFactory.getInstance().getUserService();
     private String[] requestParameters;
 
     @Override
     public String execute() {
         Integer userId = Integer.parseInt(requestParameters[1]);
-        String userName = requestParameters[2];
-        String firstName = requestParameters[3];
-        String lastName = requestParameters[4];
-        String password = requestParameters[5];
-        String roleStr = requestParameters[6];
+        String currentUserName = requestParameters[2];
+        String newUserName = requestParameters[3];
+        String firstName = requestParameters[4];
+        String lastName = requestParameters[5];
+        String password = requestParameters[6];
+        String roleStr = requestParameters[7];
         String cmdResponse = null;
         try {
-            UserValidator.validateUserProperties(userId, userName, firstName, lastName, password, roleStr);
+            UserValidator.validateUserProperties(userId, currentUserName, firstName, lastName, password, roleStr);
             User user = userService.findUserById(userId);
-            user.setUserName(userName);
+            if (!newUserName.equals(currentUserName)) {
+                UserValidator.validateUniqueUserName(newUserName, userService.findAllUsers());
+                user.setUserName(newUserName);
+            }
             user.setFirstName(firstName);
             user.setLastName(lastName);
             user.setPassword(password);
@@ -37,9 +42,11 @@ public class UserUpdateCommand implements Command {
             }
             userService.updateUser(user);
             cmdResponse = user.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-            cmdResponse = "Bad request";
+        } catch (EntryAlreadyExistsException e) {
+            cmdResponse = e.getMessage();
+        }
+        catch (ServiceException e) {
+            cmdResponse = e.getMessage();
         }
         return cmdResponse;
     }

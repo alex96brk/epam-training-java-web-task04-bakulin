@@ -22,8 +22,7 @@ public class BookFindByIdCommand implements Command {
             Book book = bookService.findBookById(id);
             cmdResponse = book.toString();
         } catch (ServiceException e) {
-            e.printStackTrace();
-            cmdResponse = "Bad request";
+            cmdResponse = e.getMessage();
         }
         return cmdResponse;
     }

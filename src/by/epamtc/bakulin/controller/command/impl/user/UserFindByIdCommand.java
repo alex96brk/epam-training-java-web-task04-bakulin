@@ -23,7 +23,7 @@ public class UserFindByIdCommand implements Command {
             User user = userService.findUserById(id);
             cmdResponse = user.toString();
         } catch (ServiceException e) {
-            cmdResponse = "Bad request";
+            cmdResponse = e.getMessage();
         }
         return cmdResponse;
     }

@@ -29,8 +29,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addUser(User user) throws ServiceException {
         try {
-            if (user == null) {
-                throw new IncorrectStateException("User value can not be null.");
+            int hash = user.hashCode();
+            if (hash < 0) {
+                hash = hash * (-1);
             }
             user.setUserId(user.hashCode());
             userDAO.add(user);
@@ -43,9 +44,6 @@ public class UserServiceImpl implements UserService {
     public User findUserById(Integer id) throws ServiceException {
         User user = null;
         try {
-            if (id == null || id < 0) {
-                throw new IncorrectStateException("Parameter - id, can not be null or less then 0; id = " + id);
-            }
             user = userDAO.findById(id);
         } catch (DAOException e) {
             throw new ServiceException(e);
@@ -58,11 +56,8 @@ public class UserServiceImpl implements UserService {
         User user = null;
         try {
             user = userDAO.findByName(userName);
-            if (user == null) {
-                throw new NotFoundException("User Not found. userName = " + userName);
-            }
         } catch (DAOException e) {
-            throw new ServiceException(e);
+            throw new NotFoundException(e);
         }
         return user;
     }
@@ -77,7 +72,7 @@ public class UserServiceImpl implements UserService {
         try {
             userDAO.update(user);
         } catch (DAOException e) {
-            throw new ServiceException(e);
+            throw new NotFoundException(e);
         }
     }
 
@@ -86,7 +81,7 @@ public class UserServiceImpl implements UserService {
         try {
             userDAO.delete(id);
         } catch (DAOException e) {
-            throw new ServiceException(e);
+            throw new NotFoundException(e);
         }
     }
 }

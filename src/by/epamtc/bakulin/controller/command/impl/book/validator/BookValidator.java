@@ -1,6 +1,10 @@
 package by.epamtc.bakulin.controller.command.impl.book.validator;
 
+import by.epamtc.bakulin.entity.Book;
 import by.epamtc.bakulin.service.exception.ServiceException;
+import by.epamtc.bakulin.service.exception.general.EntryAlreadyExistsException;
+
+import java.util.List;
 
 public class BookValidator {
 
@@ -24,6 +28,14 @@ public class BookValidator {
     public static void validateBookName(String bookName) throws ServiceException {
         if (bookName == null) {
             throw new ServiceException("Book Name can not be null");
+        }
+    }
+
+    public static void validateUniqueBookName(String bookName, List<Book> books) throws EntryAlreadyExistsException {
+        for (Book book : books) {
+            if (book.getBookName().equalsIgnoreCase(bookName)) {
+                throw new EntryAlreadyExistsException("BookName already exists. UserName: " + bookName);
+            }
         }
     }
 

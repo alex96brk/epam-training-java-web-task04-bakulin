@@ -2,7 +2,7 @@ package by.epamtc.bakulin.dao.impl;
 
 import by.epamtc.bakulin.dao.UserDAO;
 import by.epamtc.bakulin.dao.exception.general.IncorrectStateException;
-import by.epamtc.bakulin.io.IOEntityCollector;
+import by.epamtc.bakulin.io.IOEntityBuilder;
 import by.epamtc.bakulin.entity.User;
 import by.epamtc.bakulin.io.IOConnectorTXT;
 
@@ -11,7 +11,7 @@ import java.util.List;
 
 import static by.epamtc.bakulin.entity.Role.*;
 
-public class TXTUserDAO extends IOConnectorTXT implements UserDAO, IOEntityCollector<User> {
+public class TXTUserDAO extends IOConnectorTXT implements UserDAO, IOEntityBuilder<User> {
 
     private static final String USERS_SOURCE_PATH = "users.txt.source.path";
     private static final String USERS_CACHE_PATH = "users.txt.source.cache.path";
@@ -40,7 +40,7 @@ public class TXTUserDAO extends IOConnectorTXT implements UserDAO, IOEntityColle
 
     @Override
     public List<User> findAll() {
-        return collectFileData(readDocumentData(USERS_SOURCE_PATH));
+        return parseFileData(readDocumentData(USERS_SOURCE_PATH));
     }
 
     @Override
@@ -69,7 +69,7 @@ public class TXTUserDAO extends IOConnectorTXT implements UserDAO, IOEntityColle
     }
 
     @Override
-    public List<User> collectFileData(List<String> fileData) {
+    public List<User> parseFileData(List<String> fileData) {
         List<User> users = new ArrayList<>();
         for (int i = 0; i < fileData.size(); i++) {
             User user = buildEntity(parseStringLine(fileData.get(i)));

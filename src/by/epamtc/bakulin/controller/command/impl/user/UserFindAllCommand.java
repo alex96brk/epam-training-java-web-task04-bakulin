@@ -21,7 +21,7 @@ public class UserFindAllCommand implements Command {
             List<User> users = userService.findAllUsers();
             cmdResponse = users.toString();
         } catch (ServiceException e) {
-            cmdResponse = "Bad request";
+            cmdResponse = e.getMessage();
         }
         return cmdResponse;
     }

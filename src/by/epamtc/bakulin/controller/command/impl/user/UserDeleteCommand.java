@@ -20,8 +20,7 @@ public class UserDeleteCommand implements Command {
             userService.deleteUser(id);
             cmdResponse = String.format("Deleted successfully; userId = %d", id);
         } catch (Exception e) {
-            e.printStackTrace();
-            cmdResponse = "Bad request";
+            cmdResponse = e.getMessage();
         }
         return cmdResponse;
     }
