@@ -2,9 +2,9 @@ package by.epamtc.bakulin.controller.command.impl.app;
 
 import by.epamtc.bakulin.controller.command.Command;
 
-public class BadRequestCommand implements Command {
+public class NotFoundCommand implements Command {
 
-    private static final String cmdResponse = "Bad Request";
+    private static final String cmdResponse = "Not Found";
 
     @Override
     public String execute() {

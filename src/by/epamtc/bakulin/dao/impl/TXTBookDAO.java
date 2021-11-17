@@ -1,6 +1,8 @@
 package by.epamtc.bakulin.dao.impl;
 
 import by.epamtc.bakulin.dao.BookDAO;
+import by.epamtc.bakulin.dao.exception.general.IncorrectStateException;
+import by.epamtc.bakulin.entity.User;
 import by.epamtc.bakulin.io.IOEntityCollector;
 import by.epamtc.bakulin.io.IOConnector;
 import by.epamtc.bakulin.entity.Book;
@@ -27,12 +29,14 @@ public class TXTBookDAO implements BookDAO, IOEntityCollector<Book> {
     }
 
     @Override
-    public void add(Book entity) {
+    public void add(Book entity) throws IncorrectStateException {
+        entityNullCheck(entity);
         ioConnector.writeDataLine(BOOKS_SOURCE_PATH, entity.toString() + "\n");
     }
 
     @Override
-    public Book findById(Integer id) {
+    public Book findById(Integer id) throws IncorrectStateException {
+        idNullCheck(id);
         List<Book> books = findAll();
         Book result = null;
         for (Book book : books) {
@@ -49,17 +53,20 @@ public class TXTBookDAO implements BookDAO, IOEntityCollector<Book> {
     }
 
     @Override
-    public void update(Book entity) {
+    public void update(Book entity) throws IncorrectStateException {
+        entityNullCheck(entity);
         ioConnector.updateDataLine(BOOKS_SOURCE_PATH, BOOKS_CACHE_PATH, findById(entity.getBookId()).toString(), entity.toString());
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Integer id) throws IncorrectStateException {
+        idNullCheck(id);
         ioConnector.deleteDataLine(BOOKS_SOURCE_PATH, BOOKS_CACHE_PATH, findById(id).toString());
     }
 
     @Override
-    public Book findByAuthor(String author) {
+    public Book findByAuthor(String author) throws IncorrectStateException {
+        stringNullCheck(author);
         List<Book> books = findAll();
         Book result = null;
         for (Book book : books) {
@@ -99,4 +106,23 @@ public class TXTBookDAO implements BookDAO, IOEntityCollector<Book> {
         book.setBookGenre(entityProps[3]);
         return book;
     }
+
+    private void idNullCheck(Integer id) throws IncorrectStateException {
+        if (id == null) {
+            throw new IncorrectStateException("Parameter - id, can not be null or less then 0; id = " + id);
+        }
+    }
+
+    private void entityNullCheck(Book entity) throws IncorrectStateException {
+        if (entity == null) {
+            throw new IncorrectStateException("Parameter entity can not be null");
+        }
+    }
+
+    private void stringNullCheck(String userName) throws IncorrectStateException {
+        if (userName == null) {
+            throw new IncorrectStateException("Method string parameter can not be null");
+        }
+    }
+
 }

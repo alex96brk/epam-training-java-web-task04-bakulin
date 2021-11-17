@@ -1,13 +1,15 @@
 package by.epamtc.bakulin.dao.impl;
 
 import by.epamtc.bakulin.dao.UserDAO;
+import by.epamtc.bakulin.dao.exception.general.IncorrectStateException;
 import by.epamtc.bakulin.io.IOEntityCollector;
 import by.epamtc.bakulin.io.IOConnector;
-import by.epamtc.bakulin.entity.Role;
 import by.epamtc.bakulin.entity.User;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static by.epamtc.bakulin.entity.Role.*;
 
 public class TXTUserDAO implements UserDAO, IOEntityCollector<User> {
 
@@ -28,12 +30,14 @@ public class TXTUserDAO implements UserDAO, IOEntityCollector<User> {
     }
 
     @Override
-    public void add(User entity) {
+    public void add(User entity) throws IncorrectStateException {
+        entityNullCheck(entity);
         ioConnector.writeDataLine(USERS_SOURCE_PATH, entity.toString() + "\n");
     }
 
     @Override
-    public User findById(Integer id) {
+    public User findById(Integer id) throws IncorrectStateException {
+        idNullCheck(id);
         List<User> users = findAll();
         User result = null;
         for (User user : users) {
@@ -50,18 +54,20 @@ public class TXTUserDAO implements UserDAO, IOEntityCollector<User> {
     }
 
     @Override
-    public void update(User entity) {
+    public void update(User entity) throws IncorrectStateException {
+        entityNullCheck(entity);
         ioConnector.updateDataLine(USERS_SOURCE_PATH, USERS_CACHE_PATH, findById(entity.getUserId()).toString(), entity.toString());
     }
 
     @Override
-    public void delete(Integer id) {
-        System.out.println("find by id: "+findById(id).toString());
+    public void delete(Integer id) throws IncorrectStateException {
+        idNullCheck(id);
         ioConnector.deleteDataLine(USERS_SOURCE_PATH, USERS_CACHE_PATH, findById(id).toString());
     }
 
     @Override
-    public User findByName(String userName) {
+    public User findByName(String userName) throws IncorrectStateException {
+        stringNullCheck(userName);
         List<User> users = findAll();
         User result = null;
         for (User user : users) {
@@ -106,12 +112,30 @@ public class TXTUserDAO implements UserDAO, IOEntityCollector<User> {
         user.setLastName(entityProps[2]);
         user.setFirstName(entityProps[3]);
         if (entityProps[4].equalsIgnoreCase("USER")) {
-            user.setUserRole(Role.USER);
+            user.setUserRole(USER);
         }
         if (entityProps[4].equalsIgnoreCase("ADMIN")) {
-            user.setUserRole(Role.ADMIN);
+            user.setUserRole(ADMIN);
         }
         user.setPassword(entityProps[5]);
         return user;
+    }
+
+    private void idNullCheck(Integer id) throws IncorrectStateException {
+        if (id == null) {
+            throw new IncorrectStateException("Parameter - id, can not be null or less then 0; id = " + id);
+        }
+    }
+
+    private void entityNullCheck(User entity) throws IncorrectStateException {
+        if (entity == null) {
+            throw new IncorrectStateException("Parameter entity can not be null");
+        }
+    }
+
+    private void stringNullCheck(String userName) throws IncorrectStateException {
+        if (userName == null) {
+            throw new IncorrectStateException("Method string parameter can not be null");
+        }
     }
 }

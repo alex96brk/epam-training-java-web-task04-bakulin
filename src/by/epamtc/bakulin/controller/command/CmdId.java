@@ -16,6 +16,5 @@ public enum CmdId {
     BOOK_DELETE,
 
     BAD_REQUEST,
-    NOT_FOUND,
     EXIT
 }

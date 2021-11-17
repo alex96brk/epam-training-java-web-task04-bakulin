@@ -24,7 +24,7 @@ public class UserSession {
     }
 
     public String getAuthority() {
-        return authority;
+        return this.authority;
     }
 
     public User authenticate(String userName, String password) throws ServiceException {

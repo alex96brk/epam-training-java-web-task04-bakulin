@@ -7,10 +7,10 @@ import by.epamtc.bakulin.dao.impl.TXTUserDAO;
 import by.epamtc.bakulin.io.IOConnector;
 import by.epamtc.bakulin.io.impl.IOConnectorTXT;
 
-public class TXTDAOFactory {
+public final class TXTDAOFactory {
 
     private static final TXTDAOFactory INSTANCE = new TXTDAOFactory();
-    private static final IOConnector IO_CONNECTOR = new IOConnectorTXT();
+    private static IOConnector IO_CONNECTOR = new IOConnectorTXT();
 
     private TXTDAOFactory() {}
 
