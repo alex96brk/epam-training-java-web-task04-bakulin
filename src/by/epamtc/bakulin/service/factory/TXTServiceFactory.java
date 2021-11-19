@@ -6,7 +6,7 @@ import by.epamtc.bakulin.service.UserService;
 import by.epamtc.bakulin.service.impl.BookServiceImpl;
 import by.epamtc.bakulin.service.impl.UserServiceImpl;
 
-public class TXTServiceFactory {
+public final class TXTServiceFactory {
 
     private static final TXTServiceFactory INSTANCE = new TXTServiceFactory();
 
