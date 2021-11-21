@@ -1,19 +1,19 @@
 package by.epamtc.bakulin.test;
 
+import by.epamtc.bakulin.dao.factory.TXTDAOFactory;
 import by.epamtc.bakulin.entity.Book;
 import by.epamtc.bakulin.entity.User;
 import by.epamtc.bakulin.service.BookService;
 import by.epamtc.bakulin.service.UserService;
 import by.epamtc.bakulin.service.exception.ServiceException;
-import by.epamtc.bakulin.service.factory.TXTServiceFactory;
+import by.epamtc.bakulin.service.factory.ServiceFactory;
 import org.junit.Test;
 
 import java.util.List;
 
 public class ServiceFactoryTest {
-    TXTServiceFactory txtServiceFactory = TXTServiceFactory.getInstance();
-    UserService userService = txtServiceFactory.getUserService();
-    BookService bookService = txtServiceFactory.getBookService();
+    UserService userService = ServiceFactory.getInstance().getUserService(TXTDAOFactory.getInstance().getUserDAO());
+    BookService bookService = ServiceFactory.getInstance().getBookService(TXTDAOFactory.getInstance().getBookDAO());
 
     @Test
     public void test1() throws ServiceException {

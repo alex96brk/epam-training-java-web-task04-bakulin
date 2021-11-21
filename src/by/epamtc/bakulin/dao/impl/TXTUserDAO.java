@@ -1,6 +1,7 @@
 package by.epamtc.bakulin.dao.impl;
 
 import by.epamtc.bakulin.dao.UserDAO;
+import by.epamtc.bakulin.dao.exception.general.FileAccessException;
 import by.epamtc.bakulin.dao.exception.general.IncorrectStateException;
 import by.epamtc.bakulin.io.IOEntityBuilder;
 import by.epamtc.bakulin.entity.User;
@@ -20,13 +21,13 @@ public class TXTUserDAO extends IOConnectorTXT implements UserDAO, IOEntityBuild
     }
 
     @Override
-    public void add(User entity) throws IncorrectStateException {
+    public void add(User entity) throws IncorrectStateException, FileAccessException {
         entityNullCheck(entity);
         writeDataLine(USERS_SOURCE_PATH, entity + "\n");
     }
 
     @Override
-    public User findById(Integer id) throws IncorrectStateException {
+    public User findById(Integer id) throws IncorrectStateException, FileAccessException {
         idNullCheck(id);
         List<User> users = findAll();
         User result = null;
@@ -39,24 +40,24 @@ public class TXTUserDAO extends IOConnectorTXT implements UserDAO, IOEntityBuild
     }
 
     @Override
-    public List<User> findAll() {
+    public List<User> findAll() throws FileAccessException {
         return parseFileData(readDocumentData(USERS_SOURCE_PATH));
     }
 
     @Override
-    public void update(User entity) throws IncorrectStateException {
+    public void update(User entity) throws IncorrectStateException, FileAccessException {
         entityNullCheck(entity);
         updateDataLine(USERS_SOURCE_PATH, USERS_CACHE_PATH, findById(entity.getUserId()).toString(), entity.toString());
     }
 
     @Override
-    public void delete(Integer id) throws IncorrectStateException {
+    public void delete(Integer id) throws IncorrectStateException, FileAccessException {
         idNullCheck(id);
        deleteDataLine(USERS_SOURCE_PATH, USERS_CACHE_PATH, findById(id).toString());
     }
 
     @Override
-    public User findByName(String userName) throws IncorrectStateException {
+    public User findByName(String userName) throws IncorrectStateException, FileAccessException {
         stringNullCheck(userName);
         List<User> users = findAll();
         User result = null;

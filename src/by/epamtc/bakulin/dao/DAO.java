@@ -1,17 +1,18 @@
 package by.epamtc.bakulin.dao;
 
+import by.epamtc.bakulin.dao.exception.DAOException;
 import by.epamtc.bakulin.dao.exception.general.IncorrectStateException;
 
 import java.util.List;
 
 public interface DAO<T> {
-    void add(T entity) throws IncorrectStateException;
+    void add(T entity) throws DAOException;
 
-    T findById(Integer id) throws IncorrectStateException;
+    T findById(Integer id) throws DAOException;
 
-    List<T> findAll();
+    List<T> findAll() throws DAOException;
 
-    void update(T entity) throws IncorrectStateException;
+    void update(T entity) throws DAOException;
 
-    void delete(Integer id) throws IncorrectStateException;
+    void delete(Integer id) throws DAOException;
 }

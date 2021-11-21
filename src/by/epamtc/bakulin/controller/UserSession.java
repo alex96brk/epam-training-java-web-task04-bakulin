@@ -1,9 +1,10 @@
 package by.epamtc.bakulin.controller;
 
+import by.epamtc.bakulin.dao.UserDAO;
 import by.epamtc.bakulin.entity.User;
 import by.epamtc.bakulin.service.UserService;
 import by.epamtc.bakulin.service.exception.ServiceException;
-import by.epamtc.bakulin.service.factory.TXTServiceFactory;
+import by.epamtc.bakulin.service.factory.ServiceFactory;
 
 public class UserSession {
 
@@ -11,12 +12,10 @@ public class UserSession {
 
     private String authority;
 
-    private TXTServiceFactory txtServiceFactory = TXTServiceFactory.getInstance();
-
     private UserService userService;
 
-    public UserSession() {
-        this.userService = txtServiceFactory.getUserService();
+    public UserSession(UserDAO userDAO) {
+        this.userService = ServiceFactory.getInstance().getUserService(userDAO);
     }
 
     public boolean isSessionActive() {

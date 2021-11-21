@@ -5,7 +5,6 @@ import by.epamtc.bakulin.dao.exception.DAOException;
 import by.epamtc.bakulin.entity.User;
 import by.epamtc.bakulin.service.UserService;
 import by.epamtc.bakulin.service.exception.ServiceException;
-import by.epamtc.bakulin.dao.exception.general.IncorrectStateException;
 import by.epamtc.bakulin.service.exception.general.NotFoundException;
 
 import java.util.List;
@@ -29,11 +28,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addUser(User user) throws ServiceException {
         try {
-            int hash = user.hashCode();
-            if (hash < 0) {
-                hash = hash * (-1);
-            }
-            user.setUserId(user.hashCode());
+            int hash = Math.abs(user.hashCode());
+            user.setUserId(hash);
             userDAO.add(user);
         } catch (DAOException e) {
             throw new ServiceException(e);
@@ -46,7 +42,7 @@ public class UserServiceImpl implements UserService {
         try {
             user = userDAO.findById(id);
         } catch (DAOException e) {
-            throw new ServiceException(e);
+            throw new NotFoundException(e);
         }
         return user;
     }
@@ -64,7 +60,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAllUsers() throws ServiceException {
-        return userDAO.findAll();
+        try {
+            return userDAO.findAll();
+        } catch (DAOException e) {
+            throw new NotFoundException(e);
+        }
     }
 
     @Override

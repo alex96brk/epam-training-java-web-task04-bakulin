@@ -1,6 +1,8 @@
 package by.epamtc.bakulin.dao.impl;
 
 import by.epamtc.bakulin.dao.BookDAO;
+import by.epamtc.bakulin.dao.exception.DAOException;
+import by.epamtc.bakulin.dao.exception.general.FileAccessException;
 import by.epamtc.bakulin.dao.exception.general.IncorrectStateException;
 import by.epamtc.bakulin.io.IOEntityBuilder;
 import by.epamtc.bakulin.entity.Book;
@@ -18,13 +20,13 @@ public class TXTBookDAO extends IOConnectorTXT implements BookDAO, IOEntityBuild
     }
 
     @Override
-    public void add(Book entity) throws IncorrectStateException {
+    public void add(Book entity) throws IncorrectStateException, FileAccessException {
         entityNullCheck(entity);
         writeDataLine(BOOKS_SOURCE_PATH, entity + "\n");
     }
 
     @Override
-    public Book findById(Integer id) throws IncorrectStateException {
+    public Book findById(Integer id) throws IncorrectStateException, FileAccessException {
         idNullCheck(id);
         List<Book> books = findAll();
         Book result = null;
@@ -37,24 +39,24 @@ public class TXTBookDAO extends IOConnectorTXT implements BookDAO, IOEntityBuild
     }
 
     @Override
-    public List<Book> findAll() {
+    public List<Book> findAll() throws FileAccessException {
         return parseFileData(readDocumentData(BOOKS_SOURCE_PATH));
     }
 
     @Override
-    public void update(Book entity) throws IncorrectStateException {
+    public void update(Book entity) throws FileAccessException, IncorrectStateException {
         entityNullCheck(entity);
         updateDataLine(BOOKS_SOURCE_PATH, BOOKS_CACHE_PATH, findById(entity.getBookId()).toString(), entity.toString());
     }
 
     @Override
-    public void delete(Integer id) throws IncorrectStateException {
+    public void delete(Integer id) throws IncorrectStateException, FileAccessException {
         idNullCheck(id);
         deleteDataLine(BOOKS_SOURCE_PATH, BOOKS_CACHE_PATH, findById(id).toString());
     }
 
     @Override
-    public Book findByAuthor(String author) throws IncorrectStateException {
+    public Book findByAuthor(String author) throws DAOException {
         stringNullCheck(author);
         List<Book> books = findAll();
         Book result = null;
@@ -96,7 +98,7 @@ public class TXTBookDAO extends IOConnectorTXT implements BookDAO, IOEntityBuild
         return book;
     }
 
-    private void idNullCheck(Integer id) throws IncorrectStateException {
+    private void idNullCheck(Integer id) throws IncorrectStateException { //заменить на Object
         if (id == null) {
             throw new IncorrectStateException("Parameter - id, can not be null or less then 0; id = " + id);
         }

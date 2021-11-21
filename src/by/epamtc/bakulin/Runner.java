@@ -3,6 +3,7 @@ package by.epamtc.bakulin;
 import by.epamtc.bakulin.controller.Controller;
 import by.epamtc.bakulin.controller.UserSession;
 import by.epamtc.bakulin.controller.command.CmdId;
+import by.epamtc.bakulin.dao.factory.TXTDAOFactory;
 import by.epamtc.bakulin.service.exception.ServiceException;
 
 import java.util.Scanner;
@@ -11,7 +12,7 @@ public class Runner {
 
     private static Controller controller = new Controller();
     private static Scanner sc = new Scanner(System.in);
-    private static UserSession userSession = new UserSession();
+    private static UserSession userSession = new UserSession(TXTDAOFactory.getInstance().getUserDAO());
 
     private static String userCmd = "Enter next cmd request:\n" +
             "User requests:\n" +

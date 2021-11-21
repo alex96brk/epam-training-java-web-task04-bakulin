@@ -2,16 +2,21 @@ package by.epamtc.bakulin.controller.command.impl.user;
 
 import by.epamtc.bakulin.controller.command.Command;
 import by.epamtc.bakulin.controller.command.impl.user.validator.UserValidator;
+import by.epamtc.bakulin.dao.UserDAO;
+import by.epamtc.bakulin.dao.factory.TXTDAOFactory;
 import by.epamtc.bakulin.entity.Role;
 import by.epamtc.bakulin.entity.User;
 import by.epamtc.bakulin.service.UserService;
 import by.epamtc.bakulin.service.exception.ServiceException;
 import by.epamtc.bakulin.service.exception.general.EntryAlreadyExistsException;
-import by.epamtc.bakulin.service.factory.TXTServiceFactory;
+import by.epamtc.bakulin.service.factory.ServiceFactory;
 
 public class UserUpdateCommand implements Command {
 
-    private UserService userService = TXTServiceFactory.getInstance().getUserService();
+    private UserDAO userDAO = TXTDAOFactory.getInstance().getUserDAO();
+
+    private UserService userService = ServiceFactory.getInstance().getUserService(userDAO);
+
     private String[] requestParameters;
 
     @Override

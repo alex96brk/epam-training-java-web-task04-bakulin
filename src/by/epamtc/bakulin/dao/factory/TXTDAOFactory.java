@@ -5,8 +5,10 @@ import by.epamtc.bakulin.dao.UserDAO;
 import by.epamtc.bakulin.dao.impl.TXTBookDAO;
 import by.epamtc.bakulin.dao.impl.TXTUserDAO;
 
-public final class TXTDAOFactory {
-
+public final class TXTDAOFactory { //сделать независимой фабрику
+    //сделать поля dao
+    //добавить set
+    //фабричный метод
     private static final TXTDAOFactory INSTANCE = new TXTDAOFactory();
 
     private TXTDAOFactory() {}

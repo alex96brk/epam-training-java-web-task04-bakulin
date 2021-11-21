@@ -2,16 +2,20 @@ package by.epamtc.bakulin.controller.command.impl.book;
 
 import by.epamtc.bakulin.controller.command.Command;
 import by.epamtc.bakulin.controller.command.impl.book.validator.BookValidator;
+import by.epamtc.bakulin.dao.BookDAO;
+import by.epamtc.bakulin.dao.factory.TXTDAOFactory;
 import by.epamtc.bakulin.entity.Book;
 import by.epamtc.bakulin.service.BookService;
 import by.epamtc.bakulin.service.exception.ServiceException;
 import by.epamtc.bakulin.service.exception.general.EntryAlreadyExistsException;
-import by.epamtc.bakulin.service.factory.TXTServiceFactory;
+import by.epamtc.bakulin.service.factory.ServiceFactory;
 
 public class BookAddCommand implements Command {
 
-    private TXTServiceFactory txtServiceFactory = TXTServiceFactory.getInstance();
-    private BookService bookService = txtServiceFactory.getBookService();
+    private BookDAO bookDAO = TXTDAOFactory.getInstance().getBookDAO();
+
+    private BookService bookService = ServiceFactory.getInstance().getBookService(bookDAO);
+
     private String[] requestParameters;
 
     @Override

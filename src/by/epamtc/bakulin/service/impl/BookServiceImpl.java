@@ -6,6 +6,7 @@ import by.epamtc.bakulin.entity.Book;
 import by.epamtc.bakulin.service.BookService;
 import by.epamtc.bakulin.service.exception.ServiceException;
 import by.epamtc.bakulin.dao.exception.general.IncorrectStateException;
+import by.epamtc.bakulin.service.exception.general.NotFoundException;
 
 import java.util.List;
 
@@ -28,10 +29,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public void addBook(Book book) throws ServiceException {
         try {
-            int hash = book.hashCode();
-            if (hash < 0) {
-                hash = hash * (-1);
-            }
+            int hash = Math.abs(book.hashCode());
             book.setBookId(hash);
             bookDAO.add(book);
         } catch (DAOException e) {
@@ -45,7 +43,7 @@ public class BookServiceImpl implements BookService {
         try {
             book = bookDAO.findById(id);
         } catch (DAOException e) {
-            throw new ServiceException(e);
+            throw new NotFoundException(e);
         }
         return book;
     }
@@ -56,24 +54,25 @@ public class BookServiceImpl implements BookService {
         try {
             book = bookDAO.findByAuthor(bookAuthor);
         } catch (DAOException e) {
-            throw new ServiceException(e);
+            throw new NotFoundException(e);
         }
         return book;
     }
 
     @Override
-    public List<Book> findAllBooks() {
+    public List<Book> findAllBooks() throws ServiceException {
         List<Book> books = null;
-        books = bookDAO.findAll();
+        try {
+            books = bookDAO.findAll();
+        } catch (DAOException e) {
+            throw new NotFoundException(e);
+        }
         return books;
     }
 
     @Override
     public void updateBook(Book book) throws ServiceException {
         try {
-            if (book == null) {
-                throw new IncorrectStateException("Book value can not be null.");
-            }
             bookDAO.update(book);
         } catch (DAOException e) {
             throw new ServiceException(e);
@@ -83,12 +82,9 @@ public class BookServiceImpl implements BookService {
     @Override
     public void deleteBook(Integer id) throws ServiceException {
         try {
-            if (id == null || id < 0) {
-                throw new IncorrectStateException("Parameter - id, can not be null or less then 0; id = " + id);
-            }
             bookDAO.delete(id);
         } catch (DAOException e) {
-            throw new ServiceException(e);
+            throw new NotFoundException(e);
         }
     }
 }
