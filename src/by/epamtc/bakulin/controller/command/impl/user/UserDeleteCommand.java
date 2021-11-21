@@ -9,11 +9,16 @@ import by.epamtc.bakulin.service.factory.ServiceFactory;
 
 public class UserDeleteCommand implements Command {
 
-    private UserDAO userDAO = TXTDAOFactory.getInstance().getUserDAO();
+    private UserDAO userDAO;
 
-    private UserService userService = ServiceFactory.getInstance().getUserService(userDAO);
+    private UserService userService;
 
     private String[] requestParameters;
+
+    public UserDeleteCommand(UserDAO userDAO) {
+        this.userDAO = userDAO;
+        this.userService = ServiceFactory.getInstance().getUserService(userDAO);
+    }
 
     @Override
     public String execute() {

@@ -12,11 +12,16 @@ import by.epamtc.bakulin.service.factory.ServiceFactory;
 
 public class BookUpdateCommand implements Command {
 
-    private BookDAO bookDAO = TXTDAOFactory.getInstance().getBookDAO();
+    private BookDAO bookDAO;
 
-    private BookService bookService = ServiceFactory.getInstance().getBookService(bookDAO);
+    private BookService bookService;
 
     private String[] requestParameters;
+
+    public BookUpdateCommand(BookDAO bookDAO) {
+        this.bookDAO = bookDAO;
+        this.bookService = ServiceFactory.getInstance().getBookService(bookDAO);
+    }
 
     @Override
     public String execute() {

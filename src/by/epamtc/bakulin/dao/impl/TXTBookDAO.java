@@ -4,9 +4,9 @@ import by.epamtc.bakulin.dao.BookDAO;
 import by.epamtc.bakulin.dao.exception.DAOException;
 import by.epamtc.bakulin.dao.exception.general.FileAccessException;
 import by.epamtc.bakulin.dao.exception.general.IncorrectStateException;
-import by.epamtc.bakulin.io.IOEntityBuilder;
+import by.epamtc.bakulin.dao.io.IOEntityBuilder;
 import by.epamtc.bakulin.entity.Book;
-import by.epamtc.bakulin.io.IOConnectorTXT;
+import by.epamtc.bakulin.dao.io.IOConnectorTXT;
 
 import java.util.ArrayList;
 import java.util.List;

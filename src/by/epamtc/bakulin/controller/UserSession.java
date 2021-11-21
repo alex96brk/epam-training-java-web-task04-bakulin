@@ -14,8 +14,8 @@ public class UserSession {
 
     private UserService userService;
 
-    public UserSession(UserDAO userDAO) {
-        this.userService = ServiceFactory.getInstance().getUserService(userDAO);
+    public UserSession(UserService userService) {
+        this.userService = userService;
     }
 
     public boolean isSessionActive() {

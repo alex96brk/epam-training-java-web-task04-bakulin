@@ -1,6 +1,5 @@
-package by.epamtc.bakulin.io;
+package by.epamtc.bakulin.dao.io;
 
-import by.epamtc.bakulin.dao.exception.DAOException;
 import by.epamtc.bakulin.dao.exception.general.FileAccessException;
 
 import java.io.*;

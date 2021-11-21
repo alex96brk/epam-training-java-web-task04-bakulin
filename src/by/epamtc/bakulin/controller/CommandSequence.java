@@ -2,10 +2,14 @@ package by.epamtc.bakulin.controller;
 
 import by.epamtc.bakulin.controller.command.Command;
 import by.epamtc.bakulin.controller.command.exception.CommandAlreadyExistsException;
+import by.epamtc.bakulin.controller.command.impl.app.AdminHelpCommand;
 import by.epamtc.bakulin.controller.command.impl.app.BadRequestCommand;
 import by.epamtc.bakulin.controller.command.impl.app.ExitCommand;
+import by.epamtc.bakulin.controller.command.impl.app.UserHelpCommand;
 import by.epamtc.bakulin.controller.command.impl.book.*;
 import by.epamtc.bakulin.controller.command.impl.user.*;
+import by.epamtc.bakulin.dao.BookDAO;
+import by.epamtc.bakulin.dao.UserDAO;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,27 +17,36 @@ import java.util.Map;
 import static by.epamtc.bakulin.controller.command.CmdId.*;
 
 public class CommandSequence {
-    private Map<String, Command> sequence = new HashMap<>();
-    {
-        sequence.put(USER_ADD, new UserAddCommand());
-        sequence.put(USER_FIND_BY_ID, new UserFindByIdCommand());
-        sequence.put(USER_FIND_BY_UNAME, new UserFindByNameCommand());
-        sequence.put(USER_FIND_ALL, new UserFindAllCommand());
-        sequence.put(USER_UPDATE, new UserUpdateCommand());
-        sequence.put(USER_DELETE, new UserDeleteCommand());
 
-        sequence.put(BOOK_ADD, new BookAddCommand());
-        sequence.put(BOOK_FIND_BY_ID, new BookFindByIdCommand());
-        sequence.put(BOOK_FIND_BY_AUTHOR, new BookFindByAuthorCommand());
-        sequence.put(BOOK_FIND_ALL, new BookFindAllCommand());
-        sequence.put(BOOK_UPDATE, new BookUpdateCommand());
-        sequence.put(BOOK_DELETE, new BookDeleteCommand());
+    private UserDAO userDAO;
 
-        sequence.put(BAD_REQUEST, new BadRequestCommand());
-        sequence.put(EXIT, new ExitCommand());
+    private BookDAO bookDAO;
+
+    private Map<String, Command> sequence;
+
+    public CommandSequence(UserDAO userDAO, BookDAO bookDAO) {
+        this.userDAO = userDAO;
+        this.bookDAO = bookDAO;
+        this.sequence = new HashMap<>();
+        {
+            sequence.put(USER_ADD, new UserAddCommand(userDAO));
+            sequence.put(USER_FIND_BY_ID, new UserFindByIdCommand(userDAO));
+            sequence.put(USER_FIND_BY_UNAME, new UserFindByNameCommand(userDAO));
+            sequence.put(USER_FIND_ALL, new UserFindAllCommand(userDAO));
+            sequence.put(USER_UPDATE, new UserUpdateCommand(userDAO));
+            sequence.put(USER_DELETE, new UserDeleteCommand(userDAO));
+            sequence.put(BOOK_ADD, new BookAddCommand(bookDAO));
+            sequence.put(BOOK_FIND_BY_ID, new BookFindByIdCommand(bookDAO));
+            sequence.put(BOOK_FIND_BY_AUTHOR, new BookFindByAuthorCommand(bookDAO));
+            sequence.put(BOOK_FIND_ALL, new BookFindAllCommand(bookDAO));
+            sequence.put(BOOK_UPDATE, new BookUpdateCommand(bookDAO));
+            sequence.put(BOOK_DELETE, new BookDeleteCommand(bookDAO));
+            sequence.put(BAD_REQUEST, new BadRequestCommand());
+            sequence.put(EXIT, new ExitCommand());
+            sequence.put(USER_HELP, new UserHelpCommand());
+            sequence.put(ADMIN_HELP, new AdminHelpCommand());
+        }
     }
-
-    public CommandSequence() {}
 
     public Command getCommand(String cmdRequest) {
         String[] requestParameters = cmdRequest.split(" \\$");
@@ -50,6 +63,30 @@ public class CommandSequence {
         }
 
         return command;
+    }
+
+    public UserDAO getUserDAO() {
+        return userDAO;
+    }
+
+    public void setUserDAO(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
+
+    public BookDAO getBookDAO() {
+        return bookDAO;
+    }
+
+    public void setBookDAO(BookDAO bookDAO) {
+        this.bookDAO = bookDAO;
+    }
+
+    public Map<String, Command> getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(Map<String, Command> sequence) {
+        this.sequence = sequence;
     }
 
     public void addCommand(String cmdId, Command command) throws CommandAlreadyExistsException {

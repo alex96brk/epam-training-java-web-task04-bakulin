@@ -12,11 +12,16 @@ import java.util.List;
 
 public class BookFindAllCommand implements Command {
 
-    private BookDAO bookDAO = TXTDAOFactory.getInstance().getBookDAO();
+    private BookDAO bookDAO;
 
-    private BookService bookService = ServiceFactory.getInstance().getBookService(bookDAO);
+    private BookService bookService;
 
     private String[] requestParameters;
+
+    public BookFindAllCommand(BookDAO bookDAO) {
+        this.bookDAO = bookDAO;
+        this.bookService = ServiceFactory.getInstance().getBookService(bookDAO);
+    }
 
     @Override
     public String execute() {

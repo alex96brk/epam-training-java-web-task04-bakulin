@@ -3,9 +3,9 @@ package by.epamtc.bakulin.dao.impl;
 import by.epamtc.bakulin.dao.UserDAO;
 import by.epamtc.bakulin.dao.exception.general.FileAccessException;
 import by.epamtc.bakulin.dao.exception.general.IncorrectStateException;
-import by.epamtc.bakulin.io.IOEntityBuilder;
+import by.epamtc.bakulin.dao.io.IOEntityBuilder;
 import by.epamtc.bakulin.entity.User;
-import by.epamtc.bakulin.io.IOConnectorTXT;
+import by.epamtc.bakulin.dao.io.IOConnectorTXT;
 
 import java.util.ArrayList;
 import java.util.List;

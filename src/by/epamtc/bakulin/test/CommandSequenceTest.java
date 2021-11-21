@@ -1,11 +1,12 @@
 package by.epamtc.bakulin.test;
 
 import by.epamtc.bakulin.controller.CommandSequence;
+import by.epamtc.bakulin.dao.factory.TXTDAOFactory;
 import org.junit.Test;
 
 public class CommandSequenceTest {
 
-    private CommandSequence commandSequence = new CommandSequence();
+    private CommandSequence commandSequence = new CommandSequence(TXTDAOFactory.getInstance().getUserDAO(), TXTDAOFactory.getInstance().getBookDAO());
 
     @Test
     public void testBookCommand1() {

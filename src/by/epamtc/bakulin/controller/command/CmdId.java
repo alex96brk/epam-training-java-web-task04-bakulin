@@ -17,4 +17,6 @@ public class CmdId {
 
     public static String BAD_REQUEST = "BAD_REQUEST";
     public static String EXIT = "EXIT";
+    public static String USER_HELP = "USER_HELP";
+    public static String ADMIN_HELP = "ADMIN_HELP";
 }
