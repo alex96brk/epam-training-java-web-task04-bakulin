@@ -1,7 +1,7 @@
-User{userId=-845424629, userName='user4ik', lastName='Ivanov', firstName='Viktor', userRole=USER, password='321Pass'}
+User{userId=845424629, userName='user4ik', lastName='Ivanov', firstName='Viktor', userRole=USER, password='321Pass'}
 User{userId=759733364, userName='alexRaven', lastName='Raven', firstName='Alex', userRole=USER, password='lkjla3585'}
-User{userId=-522430839, userName='annPerova', lastName='Petrova', firstName='Ann', userRole=ADMIN, password='sdgsl9023'}
-User{userId=-1504598596, userName='usirsgs', lastName='Bann', firstName='Alf', userRole=USER, password='lahg452'}
+User{userId=522430839, userName='annPerova', lastName='Petrova', firstName='Ann', userRole=ADMIN, password='sdgsl9023'}
+User{userId=1504598596, userName='usirsgs', lastName='Bann', firstName='Alf', userRole=USER, password='lahg452'}
 User{userId=2029516029, userName='valeryProchor', lastName='Prochorov', firstName='Valery', userRole=USER, password='92lh53'}
 User{userId=1088570796, userName='anderHolod', lastName='Holodny', firstName='Andrey', userRole=USER, password='sglhs09'}
 User{userId=764748527, userName='tamaraVoron', lastName='Voron', firstName='Tamara', userRole=ADMIN, password='sglhs09'}

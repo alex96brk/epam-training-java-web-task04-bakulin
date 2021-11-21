@@ -1,4 +1,4 @@
-package by.epamtc.bakulin.dao.io;
+package by.epamtc.bakulin.dao.io.txt;
 
 import by.epamtc.bakulin.dao.exception.general.FileAccessException;
 
@@ -17,6 +17,10 @@ public class IOConnectorTXT {
         return PROPERTIES;
     }
 
+    public static void setPropertyPath(String path) {
+        PROPERTY_PATH = path;
+    }
+
     static {
         PROPERTIES = new Properties();
         try {
@@ -24,10 +28,6 @@ public class IOConnectorTXT {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    public static void setPropertyPath(String path) {
-        PROPERTY_PATH = path;
     }
 
     public static List<String> readDocumentData(String propertyName) throws FileAccessException {
