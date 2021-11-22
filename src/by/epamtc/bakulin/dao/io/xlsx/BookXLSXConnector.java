@@ -1,5 +1,6 @@
 package by.epamtc.bakulin.dao.io.xlsx;
 
+import by.epamtc.bakulin.dao.exception.general.FileAccessException;
 import by.epamtc.bakulin.dao.io.IOEntityBuilder;
 import by.epamtc.bakulin.entity.Book;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -34,7 +35,7 @@ public class BookXLSXConnector implements IOEntityBuilder<Book> {
         }
     }
 
-    public static List<String> readDocumentData(String propertyName) {
+    public static List<String> readDocumentData(String propertyName) throws FileAccessException {
         propertyName = PROPERTIES.getProperty("books.xlsx.source.path");
         List<String> data = new ArrayList<>();
 
@@ -42,7 +43,7 @@ public class BookXLSXConnector implements IOEntityBuilder<Book> {
 
 
         } catch (IOException ioException) {
-            ioException.printStackTrace();
+            throw new FileAccessException(ioException);
         }
         return data;
     }

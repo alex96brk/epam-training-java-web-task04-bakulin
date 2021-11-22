@@ -16,31 +16,53 @@ public class XLSXUserDAO extends UserXLSXConnector implements UserDAO {
 
     @Override
     public void add(User entity) throws DAOException {
-
+        parameterNullCheck(entity);
     }
 
     @Override
     public User findById(Integer id) throws DAOException {
-        return null;
+        parameterNullCheck(id);
+        List<User> users = findAll();
+        User result = null;
+        for (User user : users) {
+            if (user.getUserId().equals(id)) {
+                result = user;
+            }
+        }
+        return result;
     }
 
     @Override
-    public List<User> findAll() throws DAOException {
+    public List<User> findAll() throws FileAccessException {
         return readDocumentData(USERS_SOURCE_PATH);
     }
 
     @Override
     public void update(User entity) throws DAOException {
-
+        parameterNullCheck(entity);
     }
 
     @Override
     public void delete(Integer id) throws DAOException {
-
+        parameterNullCheck(id);
     }
 
     @Override
     public User findByName(String userName) throws IncorrectStateException, FileAccessException {
-        return null;
+        parameterNullCheck(userName);
+        List<User> users = findAll();
+        User result = null;
+        for (User user : users) {
+            if (user.getUserName().equals(userName)) {
+                result = user;
+            }
+        }
+        return result;
+    }
+
+    private void parameterNullCheck(Object parameter) throws IncorrectStateException {
+        if (parameter == null) {
+            throw new IncorrectStateException("Parameter - can not be null");
+        }
     }
 }

@@ -1,6 +1,6 @@
 package by.epamtc.bakulin.dao.io.xlsx;
 
-import by.epamtc.bakulin.dao.io.IOEntityBuilder;
+import by.epamtc.bakulin.dao.exception.general.FileAccessException;
 import by.epamtc.bakulin.entity.Role;
 import by.epamtc.bakulin.entity.User;
 import org.apache.poi.ss.usermodel.Cell;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Properties;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class UserXLSXConnector implements IOEntityBuilder<User> {
+public class UserXLSXConnector {
 
     private static final Properties PROPERTIES;
 
@@ -39,7 +39,7 @@ public class UserXLSXConnector implements IOEntityBuilder<User> {
         }
     }
 
-    public static List<User> readDocumentData(String propertyName) {
+    public static List<User> readDocumentData(String propertyName) throws FileAccessException {
         propertyName = PROPERTIES.getProperty("users.xlsx.source.path");
         List<User> data = new ArrayList<>();
         try(Workbook workbook = new XSSFWorkbook(propertyName)) {
@@ -94,24 +94,9 @@ public class UserXLSXConnector implements IOEntityBuilder<User> {
                 }
             }
         } catch (IOException ioException) {
-            ioException.printStackTrace();
+            throw new FileAccessException(ioException);
         }
         return data;
     }
 
-
-    @Override
-    public List<User> parseFileData(List<String> fileData) {
-        return null;
-    }
-
-    @Override
-    public String[] parseStringLine(String line) {
-        return new String[0];
-    }
-
-    @Override
-    public User buildEntity(String[] entityProps) {
-        return null;
-    }
 }

@@ -22,13 +22,13 @@ public class TXTUserDAO extends IOConnectorTXT implements UserDAO, IOEntityBuild
 
     @Override
     public void add(User entity) throws IncorrectStateException, FileAccessException {
-        entityNullCheck(entity);
+        parameterNullCheck(entity);
         writeDataLine(USERS_SOURCE_PATH, entity + "\n");
     }
 
     @Override
     public User findById(Integer id) throws IncorrectStateException, FileAccessException {
-        idNullCheck(id);
+        parameterNullCheck(id);
         List<User> users = findAll();
         User result = null;
         for (User user : users) {
@@ -46,19 +46,19 @@ public class TXTUserDAO extends IOConnectorTXT implements UserDAO, IOEntityBuild
 
     @Override
     public void update(User entity) throws IncorrectStateException, FileAccessException {
-        entityNullCheck(entity);
+        parameterNullCheck(entity);
         updateDataLine(USERS_SOURCE_PATH, USERS_CACHE_PATH, findById(entity.getUserId()).toString(), entity.toString());
     }
 
     @Override
     public void delete(Integer id) throws IncorrectStateException, FileAccessException {
-        idNullCheck(id);
-       deleteDataLine(USERS_SOURCE_PATH, USERS_CACHE_PATH, findById(id).toString());
+        parameterNullCheck(id);
+        deleteDataLine(USERS_SOURCE_PATH, USERS_CACHE_PATH, findById(id).toString());
     }
 
     @Override
     public User findByName(String userName) throws IncorrectStateException, FileAccessException {
-        stringNullCheck(userName);
+        parameterNullCheck(userName);
         List<User> users = findAll();
         User result = null;
         for (User user : users) {
@@ -112,21 +112,9 @@ public class TXTUserDAO extends IOConnectorTXT implements UserDAO, IOEntityBuild
         return user;
     }
 
-    private void idNullCheck(Integer id) throws IncorrectStateException {
-        if (id == null) {
-            throw new IncorrectStateException("Parameter - id, can not be null or less then 0; id = " + id);
-        }
-    }
-
-    private void entityNullCheck(User entity) throws IncorrectStateException {
-        if (entity == null) {
-            throw new IncorrectStateException("Parameter entity can not be null");
-        }
-    }
-
-    private void stringNullCheck(String userName) throws IncorrectStateException {
-        if (userName == null) {
-            throw new IncorrectStateException("Method string parameter can not be null");
+    private void parameterNullCheck(Object parameter) throws IncorrectStateException {
+        if (parameter == null) {
+            throw new IncorrectStateException("Parameter - can not be null");
         }
     }
 }
