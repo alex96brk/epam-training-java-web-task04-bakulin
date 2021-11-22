@@ -1,6 +1,6 @@
 package by.epamtc.bakulin.test;
 
-import by.epamtc.bakulin.dao.factory.TXTDAOFactory;
+import by.epamtc.bakulin.dao.factory.impl.TXTDAOFactory;
 import by.epamtc.bakulin.entity.User;
 import by.epamtc.bakulin.service.UserService;
 import by.epamtc.bakulin.service.exception.ServiceException;

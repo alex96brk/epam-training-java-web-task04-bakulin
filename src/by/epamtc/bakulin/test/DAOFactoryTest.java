@@ -3,7 +3,7 @@ package by.epamtc.bakulin.test;
 import by.epamtc.bakulin.dao.BookDAO;
 import by.epamtc.bakulin.dao.UserDAO;
 import by.epamtc.bakulin.dao.exception.DAOException;
-import by.epamtc.bakulin.dao.factory.TXTDAOFactory;
+import by.epamtc.bakulin.dao.factory.impl.TXTDAOFactory;
 import by.epamtc.bakulin.entity.Book;
 import by.epamtc.bakulin.entity.User;
 import org.junit.Test;

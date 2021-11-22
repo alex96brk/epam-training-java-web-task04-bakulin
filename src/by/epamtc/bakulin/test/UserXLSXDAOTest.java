@@ -2,11 +2,8 @@ package by.epamtc.bakulin.test;
 
 import by.epamtc.bakulin.dao.UserDAO;
 import by.epamtc.bakulin.dao.exception.DAOException;
-import by.epamtc.bakulin.dao.exception.general.FileAccessException;
-import by.epamtc.bakulin.dao.exception.general.IncorrectStateException;
 import by.epamtc.bakulin.dao.impl.XLSXUserDAO;
 import by.epamtc.bakulin.entity.User;
-import org.apache.xmlbeans.impl.xb.xsdschema.Attribute;
 import org.junit.Test;
 
 import java.util.List;

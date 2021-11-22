@@ -3,7 +3,6 @@ package by.epamtc.bakulin.controller.command.impl.user;
 import by.epamtc.bakulin.controller.command.Command;
 import by.epamtc.bakulin.controller.command.impl.user.validator.UserValidator;
 import by.epamtc.bakulin.dao.UserDAO;
-import by.epamtc.bakulin.dao.factory.TXTDAOFactory;
 import by.epamtc.bakulin.entity.Role;
 import by.epamtc.bakulin.entity.User;
 import by.epamtc.bakulin.service.UserService;

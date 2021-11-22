@@ -6,7 +6,7 @@ import by.epamtc.bakulin.controller.UserSession;
 import by.epamtc.bakulin.controller.command.CmdId;
 import by.epamtc.bakulin.dao.BookDAO;
 import by.epamtc.bakulin.dao.UserDAO;
-import by.epamtc.bakulin.dao.factory.TXTDAOFactory;
+import by.epamtc.bakulin.dao.factory.impl.TXTDAOFactory;
 import by.epamtc.bakulin.service.exception.ServiceException;
 import by.epamtc.bakulin.service.factory.ServiceFactory;
 
@@ -16,7 +16,6 @@ public class ConsoleRunner {
 
     public static void main(String[] args) {
         ConsoleRunner runner = ConsoleRunner.getInstance();
-
         runner.doAuth(runner.getUserSession());
         runner.commandHandler();
     }
