@@ -15,12 +15,15 @@ public class XLSXUserDAO extends UserXLSXConnector implements UserDAO {
     private static final String USERS_CACHE_PATH = "users.xlsx.source.cache.path";
 
     @Override
-    public void add(User entity) throws DAOException {
+    public void add(User entity) throws IncorrectStateException, FileAccessException {
         parameterNullCheck(entity);
+        List<User> users = findAll();
+        users.add(entity);
+        writeDataLine(USERS_SOURCE_PATH, USERS_CACHE_PATH, users);
     }
 
     @Override
-    public User findById(Integer id) throws DAOException {
+    public User findById(Integer id) throws FileAccessException, IncorrectStateException {
         parameterNullCheck(id);
         List<User> users = findAll();
         User result = null;
@@ -38,13 +41,17 @@ public class XLSXUserDAO extends UserXLSXConnector implements UserDAO {
     }
 
     @Override
-    public void update(User entity) throws DAOException {
+    public void update(User entity) throws FileAccessException, IncorrectStateException {
         parameterNullCheck(entity);
+        List<User> users = findAll();
+        updateDataLine(USERS_SOURCE_PATH, USERS_CACHE_PATH, users, entity);
     }
 
     @Override
     public void delete(Integer id) throws DAOException {
         parameterNullCheck(id);
+        List<User> users = findAll();
+        deleteDataLine(USERS_SOURCE_PATH, USERS_CACHE_PATH, users, findById(id));
     }
 
     @Override
