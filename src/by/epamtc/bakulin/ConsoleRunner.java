@@ -30,7 +30,7 @@ public class ConsoleRunner {
 
     private Controller controller;
 
-    public ConsoleRunner(LibraryDAOFactory libraryDAOFactory) {
+    private ConsoleRunner(LibraryDAOFactory libraryDAOFactory) {
         this.controller = new Controller(new CommandSequence(libraryDAOFactory));
         this.userSession = new UserSession(ServiceFactory.getInstance().getUserService(libraryDAOFactory.getUserDAO()));
     }
