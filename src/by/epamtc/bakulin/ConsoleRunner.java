@@ -1,9 +1,9 @@
 package by.epamtc.bakulin;
 
-import by.epamtc.bakulin.controller.CommandSequence;
+import by.epamtc.bakulin.controller.command.impl.CommandSequence;
 import by.epamtc.bakulin.controller.Controller;
 import by.epamtc.bakulin.controller.UserSession;
-import by.epamtc.bakulin.controller.command.CmdId;
+import by.epamtc.bakulin.controller.command.impl.CmdId;
 import by.epamtc.bakulin.dao.factory.LibraryDAOFactory;
 import by.epamtc.bakulin.dao.factory.impl.TXTDAOFactory;
 import by.epamtc.bakulin.dao.factory.impl.XLSXDAOFactory;

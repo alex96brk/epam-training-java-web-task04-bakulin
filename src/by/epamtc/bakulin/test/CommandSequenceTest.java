@@ -1,6 +1,6 @@
 package by.epamtc.bakulin.test;
 
-import by.epamtc.bakulin.controller.CommandSequence;
+import by.epamtc.bakulin.controller.command.impl.CommandSequence;
 import by.epamtc.bakulin.dao.factory.impl.TXTDAOFactory;
 import org.junit.Test;
 

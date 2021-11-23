@@ -1,4 +1,4 @@
-package by.epamtc.bakulin.controller.command;
+package by.epamtc.bakulin.controller.command.impl;
 
 public class CmdId {
     public static String USER_ADD = "USER_ADD";

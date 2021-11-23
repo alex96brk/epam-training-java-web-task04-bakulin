@@ -2,9 +2,10 @@ package by.epamtc.bakulin.controller;
 
 
 import by.epamtc.bakulin.controller.command.Command;
+import by.epamtc.bakulin.controller.command.impl.CommandSequence;
 import by.epamtc.bakulin.entity.Role;
 
-import static by.epamtc.bakulin.controller.command.CmdId.*;
+import static by.epamtc.bakulin.controller.command.impl.CmdId.*;
 
 import java.util.ArrayList;
 import java.util.List;

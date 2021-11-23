@@ -1,4 +1,4 @@
-package by.epamtc.bakulin.controller.command;
+package by.epamtc.bakulin.controller.command.impl;
 
 public class CommandConstant {
     public static String USER_CMD = "Enter next cmd request:\n" +

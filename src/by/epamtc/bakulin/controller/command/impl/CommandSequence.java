@@ -1,4 +1,4 @@
-package by.epamtc.bakulin.controller;
+package by.epamtc.bakulin.controller.command.impl;
 
 import by.epamtc.bakulin.controller.command.Command;
 import by.epamtc.bakulin.controller.command.exception.CommandAlreadyExistsException;
@@ -15,7 +15,7 @@ import by.epamtc.bakulin.dao.factory.LibraryDAOFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-import static by.epamtc.bakulin.controller.command.CmdId.*;
+import static by.epamtc.bakulin.controller.command.impl.CmdId.*;
 
 public class CommandSequence {
 

@@ -2,7 +2,7 @@ package by.epamtc.bakulin.controller.command.impl.app;
 
 import by.epamtc.bakulin.controller.command.Command;
 
-import static by.epamtc.bakulin.controller.command.CommandConstant.ADMIN_CMD;
+import static by.epamtc.bakulin.controller.command.impl.CommandConstant.ADMIN_CMD;
 
 
 public class AdminHelpCommand implements Command {
