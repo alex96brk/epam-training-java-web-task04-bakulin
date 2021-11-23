@@ -4,9 +4,9 @@ import by.epamtc.bakulin.controller.CommandSequence;
 import by.epamtc.bakulin.controller.Controller;
 import by.epamtc.bakulin.controller.UserSession;
 import by.epamtc.bakulin.controller.command.CmdId;
-import by.epamtc.bakulin.dao.BookDAO;
-import by.epamtc.bakulin.dao.UserDAO;
+import by.epamtc.bakulin.dao.factory.LibraryDAOFactory;
 import by.epamtc.bakulin.dao.factory.impl.TXTDAOFactory;
+import by.epamtc.bakulin.dao.factory.impl.XLSXDAOFactory;
 import by.epamtc.bakulin.service.exception.ServiceException;
 import by.epamtc.bakulin.service.factory.ServiceFactory;
 
@@ -22,69 +22,24 @@ public class ConsoleRunner {
 
     private static Scanner sc = new Scanner(System.in);
 
-    private UserDAO userDAO;
+    private static final String DATA_SOURCE_TYPE_TXT = "TXT";
 
-    private BookDAO bookDAO;
+    private static final String DATA_SOURCE_TYPE_EXCEL = "EXCEL";
 
     private UserSession userSession;
 
     private Controller controller;
 
-    private CommandSequence commandSequence;
-
-    private static final String DATA_SOURCE_TYPE_TXT = "TXT";
-    private static final String DATA_SOURCE_TYPE_EXCEL = "EXCEL";
-
-    public ConsoleRunner(UserDAO userDAO, BookDAO bookDAO) {
-        this.userDAO = userDAO;
-        this.bookDAO = bookDAO;
-        this.commandSequence = new CommandSequence(userDAO, bookDAO);
-        this.controller = new Controller(commandSequence);
-        this.userSession = new UserSession(ServiceFactory.getInstance().getUserService(userDAO));
+    public ConsoleRunner(LibraryDAOFactory libraryDAOFactory) {
+        this.controller = new Controller(new CommandSequence(libraryDAOFactory));
+        this.userSession = new UserSession(ServiceFactory.getInstance().getUserService(libraryDAOFactory.getUserDAO()));
     }
 
     public UserSession getUserSession() {
         return userSession;
     }
 
-    public void setUserSession(UserSession userSession) {
-        this.userSession = userSession;
-    }
-
-    public UserDAO getUserDAO() {
-        return userDAO;
-    }
-
-    public void setUserDAO(UserDAO userDAO) {
-        this.userDAO = userDAO;
-    }
-
-    public BookDAO getBookDAO() {
-        return bookDAO;
-    }
-
-    public void setBookDAO(BookDAO bookDAO) {
-        this.bookDAO = bookDAO;
-    }
-
-    public Controller getController() {
-        return controller;
-    }
-
-    public void setController(Controller controller) {
-        this.controller = controller;
-    }
-
-    public CommandSequence getCommandSequence() {
-        return commandSequence;
-    }
-
-    public void setCommandSequence(CommandSequence commandSequence) {
-        this.commandSequence = commandSequence;
-    }
-
-    //исзменить внедрение зависимостей на фабрику
-    private static ConsoleRunner getInstance() {
+    public static ConsoleRunner getInstance() {
         String source = null;
         ConsoleRunner runner = null;
         printConsoleMessageNextLine("Choose data source.\n\tEnter 'TXT' - to get data from .txt data source\n\tEnter 'EXCEL' - to get data from .xlsx data source");
@@ -92,11 +47,12 @@ public class ConsoleRunner {
             printConsoleMessageCurrentLine("DATA SOURCE TYPE: ");
             source = sc.nextLine();
             if (source.equalsIgnoreCase(DATA_SOURCE_TYPE_TXT)) {
-                runner = new ConsoleRunner(TXTDAOFactory.getInstance().getUserDAO(), TXTDAOFactory.getInstance().getBookDAO());
+                runner = new ConsoleRunner(TXTDAOFactory.getInstance());
                 printConsoleMessageNextLine("Current Data Source: " + DATA_SOURCE_TYPE_TXT + "\n");
             }
             if (source.equalsIgnoreCase(DATA_SOURCE_TYPE_EXCEL)) {
-                throw new UnsupportedOperationException("Excel Data Source is not ready");
+                runner = new ConsoleRunner(XLSXDAOFactory.getInstance());
+                printConsoleMessageNextLine("Current Data Source: " + DATA_SOURCE_TYPE_EXCEL + "\n");
             }
         } while (runner == null);
         return runner;

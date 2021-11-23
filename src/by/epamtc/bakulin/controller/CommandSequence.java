@@ -10,6 +10,7 @@ import by.epamtc.bakulin.controller.command.impl.book.*;
 import by.epamtc.bakulin.controller.command.impl.user.*;
 import by.epamtc.bakulin.dao.BookDAO;
 import by.epamtc.bakulin.dao.UserDAO;
+import by.epamtc.bakulin.dao.factory.LibraryDAOFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,9 +25,9 @@ public class CommandSequence {
 
     private Map<String, Command> sequence;
 
-    public CommandSequence(UserDAO userDAO, BookDAO bookDAO) {
-        this.userDAO = userDAO;
-        this.bookDAO = bookDAO;
+    public CommandSequence(LibraryDAOFactory libraryDAOFactory) {
+        this.userDAO = libraryDAOFactory.getUserDAO();
+        this.bookDAO = libraryDAOFactory.getBookDAO();
         this.sequence = new HashMap<>();
         {
             sequence.put(USER_ADD, new UserAddCommand(userDAO));

@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class CommandSequenceTest {
 
-    private CommandSequence commandSequence = new CommandSequence(TXTDAOFactory.getInstance().getUserDAO(), TXTDAOFactory.getInstance().getBookDAO());
+    private CommandSequence commandSequence = new CommandSequence(TXTDAOFactory.getInstance());
 
     @Test
     public void testBookCommand1() {
