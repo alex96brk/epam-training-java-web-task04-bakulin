@@ -83,6 +83,7 @@ public class ConsoleRunner {
         this.commandSequence = commandSequence;
     }
 
+    //исзменить внедрение зависимостей на фабрику
     private static ConsoleRunner getInstance() {
         String source = null;
         ConsoleRunner runner = null;
